@@ -8,42 +8,15 @@
       </template>
       <!-- 时间 -->
 
-      <template #time>
-        <div class="text-week">
-          今天是: {{ date }} {{ week }}
-        </div>
-      </template>
-
-
       <!-- 用户信息 -->
-      <template #userinfo>
-        <div class="router">
-          <el-button class="buttonToMap" plain link color="fff" @click="changePasswordDialog = true"
-            size="large">修改密码</el-button>
 
-          <el-button class="buttonToMap" plain link color="fff" @click="toMap" size="large">前往地图主页</el-button>
-        </div>
-        <el-dropdown>
-          <span class="el-dropdown-link">
-            {{ params.username + "（" + params.role + "）" }}
-            <el-icon>
-              <ArrowDown />
-            </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="logout">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </template>
     </Header>
     <el-container>
       <!-- 大类和子系统栏 -->
       <el-header class="navHeader">
         <!-- logo -->
 
-        <el-image class="text-logo" :src="require('@/assets/home/logo-title.jpg')" fit="scale-down"></el-image>
+        <el-image class="text-logo" :src="require('@/assets/home/logo1.jpg')" fit="fill"></el-image>
         <div class="classification" v-if="showDepts">
           <class-item v-for="dept in depts" :key="dept.deptId" @click="switchShowDepts(dept.deptId, dept.deptName)"
             :logo="dept.deptLogo" :name="dept.deptName" styleName="subsysName"></class-item>
@@ -128,20 +101,15 @@
                 {{ item.systemName }}</el-button>
             </div>
             <div class="infoContainer" style="background-color:#2775b6;color:white">
-              <!-- logo -->
-              <!-- <div>
-        <el-avatar class="logo-icon" :src="require('@/assets/home/'+logo)" size="large"></el-avatar>
-        </div> -->
-              <!-- 汇总数据列表 -->
+
               <div>
-                <!-- <el-avatar class="logo-icon" :src="require('@/assets/home/'+logo)" size="large" ></el-avatar> -->
                 <ul class="infoList">
                   <li v-for="item in item.data" style="font-size:20px">{{ item.infoKey + ": " }}<span>{{ item.infoVal
                   }}</span></li>
 
                 </ul>
 
-                <el-popover :width="1000" placement="right" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
+                <el-popover :width="400" placement="top" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
                   popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
                   style="text-align: center;">
                   <template #reference>
@@ -152,12 +120,12 @@
                   <template #default>
                     <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column ">
                       <div>
-                        <p class="demo-rich-content__name" style="margin: 0; font-weight: 500;font-size: 25px;">
+                        <p class="demo-rich-content__name" style="margin: 0; font-weight: 500;font-size: 20px;">
                           {{ item.systemName }}
                         </p>
 
                         <div style="display:flex">
-                          <dv-border-box6 style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
+                          <dv-border-box6 style="font-size: 15px;padding: 10px;margin-top: 0px;width:100%">
                             <div>{{ item.infoKey }}</div>
                             <div style="text-align:center">{{ item.infoVal }}</div>
                           </dv-border-box6>
@@ -176,7 +144,7 @@
                           <el-table-column prop="e_alarm_name" label="报警名称" width="180" />
                           <el-table-column prop="e_alarm_create_time" label="报送时间" width="280" />
                           <el-table-column prop="e_alarm_sanitation_task_truck" label="处置车辆" width="180" />
-                          <el-table-column prop="e_alarm_from" label="地点" />
+                          <el-table-column prop="e_alarm_from" label="地点" width="180" />
 
 
                         </el-table>
@@ -184,16 +152,16 @@
                           style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                           @清运车辆列表
                         </p>
-                        <el-table :data="hwzy_tableData" stripe style="width: 100%" max-height="500" :header-cell-style="{
+                        <el-table :data="hwzy_tableData" stripe style="width: 100%" max-height="300" :header-cell-style="{
                           'font-size': '18px',
                           'background': '#303133 !important',
                           'color': '#ffffff',
                           'border': 'none !important'
                         }" :cell-style=changeCellStyle>
-                          <el-table-column prop="teamName" label="名称" width="180" />
-                          <el-table-column prop="carName" label="车辆名称" width="280" />
-                          <el-table-column prop="cmpName" label="公司名称" width="180" />
-                          <el-table-column prop="onlineTime" label="在线时间" />
+                          <el-table-column prop="teamName" label="名称" width="60" />
+                          <el-table-column prop="carName" label="车辆名称" width="100" />
+                          <el-table-column prop="cmpName" label="公司名称" width="100" />
+                          <el-table-column prop="onlineTime" label="在线时间" width="140" />
 
 
                         </el-table>
@@ -237,7 +205,7 @@
 
                 </ul>
 
-                <el-popover :width="1000" placement="top" effect="dark" @after-enter=echartInit_cclj() trigger="click"
+                <el-popover :width="600" placement="top" effect="dark" @after-enter=echartInit_cclj() trigger="click"
                   popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
                   style="text-align: center;">
                   <template #reference>
@@ -255,8 +223,8 @@
                           style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                           @详情统计
                         </p>
-                        <div id="container_cclj" style="width: 1000px; height: 400px;"></div>
-                        <div id="container_cclj1" style="width: 1000px; height: 400px;"></div>
+                        <div id="container_cclj" style="width: 450px; height: 300px;"></div>
+                        <div id="container_cclj1" style="width: 600px; height: 300px;"></div>
 
 
 
@@ -295,7 +263,7 @@
 
                 </ul>
 
-                <el-popover :width="1000" placement="left" effect="dark" @after-enter=echartInit_ljz() trigger="click"
+                <el-popover :width="400" placement="top" effect="dark" @after-enter=echartInit_ljz() trigger="click"
                   popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
                   style="text-align: center;">
                   <template #reference>
@@ -313,8 +281,8 @@
                           style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                           @详情统计
                         </p>
-                        <div id="container_ljz1" style="width: 1000px; height: 400px;"></div>
-                        <div id="container_ljz2" style="width: 1000px; height: 400px;"></div>
+                        <div id="container_ljz1" style="width: 360px; height: 200px;"></div>
+                        <div id="container_ljz2" style="width: 360px; height: 300px;"></div>
 
                         <!-- <div id="container_jgzm1" style="width: 600px; height: 400px;float: left;"></div>
     <div id="container_jgzm2" style="width: 600px; height: 400px ;float:left"></div> -->
@@ -351,7 +319,7 @@
 
                 </ul>
 
-                <el-popover :width="800" placement="left" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
+                <el-popover :width="800" placement="top" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
                   popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;"
                   style="text-align: center;">
                   <template #reference>
@@ -418,21 +386,22 @@
               <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{ item.infoKey + ": " + item.infoVal
               }}</li>
             </div> -->
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '餐饮油烟管家'" :key="idx"
+            <div class="srzxInfo0" v-if="item.deptId == 1 && item.systemName == '餐饮油烟管家'" :key="idx"
               :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:#e6e6e6;width:100%">
+              <div style="margin-bottom:5%;margin-top: 10%;font-size: 25px;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
-
+                  style="margin-top:10px;margin-left:10px;color:#2775b6">{{ item.systemName }}</el-button>
 
               </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
-                item.infoKey + ": " + item.infoVal
-              }}</li>
+
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white;margin-left:25px">
+                {{
+                  item.infoKey + ": " + item.infoVal
+                }}</li>
 
 
-              <el-popover :width="1000" effect="dark" @after-enter=echartInit() trigger="click" placement="right-end"
+              <el-popover :width="800" effect="dark" @after-enter=echartInit() trigger="click" placement="top"
                 popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                 <template #reference>
                   <el-button size="medium" style="padding:10pxx;font-size: 25px;" type="primary" link> 查看详情 >
@@ -448,10 +417,10 @@
                         style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                         @详情统计
                       </p>
-                      <div id="container_yyxt1" style="width: 1000px; height: 350px"></div>
-                      <div id="container_yyxt2" style="width: 1000px; height: 350px"></div>
-                      <div id="container_yyxt3" style="width: 500px; height: 350px;float:left"></div>
-                      <div id="container_yyxt4" style="width: 500px; height: 350px;float:left"></div>
+                      <div id="container_yyxt1" style="width: 800px; height: 300px"></div>
+                      <div id="container_yyxt2" style="width: 600px; height: 300px"></div>
+                      <div id="container_yyxt3" style="width: 300px; height: 300px;float:left"></div>
+                      <div id="container_yyxt4" style="width: 300px; height: 300px;float:left"></div>
 
                       <div style="display:flex ;clear:left">
 
@@ -468,18 +437,20 @@
                 </template>
               </el-popover>
             </div>
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '综合行政管理执法智慧管家'" :key="idx"
+            <div class="srzxInfo1" v-if="item.deptId == 1 && item.systemName == '综合行政管理执法智慧管家'" :key="idx"
               :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:#e6e6e6;width:100%">
+              <div style="margin-bottom:5%;margin-top: 10%;font-size: 25px;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
-
+                  style="margin-top:10px;margin-left:10px;color:#2775b6">{{ item.systemName }}</el-button>
 
               </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
-                item.infoKey + ": " + item.infoVal
-              }}</li>
+
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white;margin-left:25px">
+                {{
+                  item.infoKey + ": " + item.infoVal
+                }}</li>
+
 
 
               <el-popover :width="1000" effect="dark" @after-enter=echartInit() trigger="click" placement="right-end"
@@ -498,56 +469,6 @@
                         style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                         @详情统计
                       </p>
-
-
-                      <div style="display:flex ;clear:left">
-
-                        <dv-border-box6 style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
-                          <div>{{ item.infoKey }}</div>
-                          <div style="text-align:center">{{ item.infoVal }}</div>
-                        </dv-border-box6>
-
-                      </div>
-                    </div>
-
-                  </div>
-
-                </template>
-              </el-popover>
-            </div>
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '调度指挥管家'" :key="idx"
-              :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
-                <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
-
-
-              </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
-                item.infoKey + ": " + item.infoVal
-              }}</li>
-
-
-              <el-popover :width="1000" effect="dark" @after-enter=echartInit() trigger="click" placement="right-end"
-                popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
-                <template #reference>
-                  <el-button size="medium" style="padding:10pxx;font-size: 25px;" type="primary" link> 查看详情 >
-                  </el-button>
-                </template>
-                <template #default>
-                  <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column ">
-                    <div>
-                      <p class="demo-rich-content__name" style="margin: 0; font-weight: 500;font-size: 25px;">
-                        {{ item.systemName }}
-                      </p>
-                      <p class="demo-rich-content__mention"
-                        style="margin: 0; font-size: 18px; color: var(--el-color-info)">
-                        @详情统计
-                      </p>
-
-                      <div id="container_ddzh1" style="width: 1000px; height: 400px;float: left;"></div>
-                      <div id="container_ddzh2" style="width: 1000px; height: 400px ;float:left"></div>
 
 
                       <div style="display:flex ;clear:left">
@@ -565,21 +486,23 @@
                 </template>
               </el-popover>
             </div>
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '扬尘治理大数据协同管家'" :key="idx"
+
+            <div class="srzxInfo2" v-if="item.deptId == 1 && item.systemName == '调度指挥管家'" :key="idx"
               :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:#e6e6e6;width:100%">
+              <div style="margin-bottom:0%;margin-top: 10%;font-size: 25px;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
+                  style="margin-top:10px;margin-left:10px;color:#2775b6">{{ item.systemName }}</el-button>
 
 
               </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
-                item.infoKey + ": " + item.infoVal
-              }}</li>
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white;margin-left:25px">
+                {{
+                  item.infoKey + ": " + item.infoVal
+                }}</li>
 
 
-              <el-popover :width="1000" effect="dark" @after-enter=echartInit() trigger="click" placement="right-end"
+              <el-popover :width="400" effect="dark" @after-enter=echartInit_ddzh() trigger="click" placement="top"
                 popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                 <template #reference>
                   <el-button size="medium" style="padding:10pxx;font-size: 25px;" type="primary" link> 查看详情 >
@@ -595,6 +518,89 @@
                         style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                         @详情统计
                       </p>
+
+                      <div id="container_ddzh1" style="width: 400px; height:600px;float: left;">
+                      </div>
+                      <!-- <div id="container_ddzh2" style="width: 1000px; height: 400px ;float:left"></div> -->
+
+
+                      <div style="display:flex ;clear:left">
+
+                        <dv-border-box6 style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
+                          <div>{{ item.infoKey }}</div>
+                          <div style="text-align:center">{{ item.infoVal }}</div>
+                        </dv-border-box6>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                </template>
+              </el-popover>
+            </div>
+            <div class="srzxInfo3" v-if="item.deptId == 1 && item.systemName == '扬尘治理大数据协同管家'" :key="idx"
+              :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:white;width:100%">
+              <div style="margin-bottom:0%;margin-top: 10%;font-size: 25px;">
+                <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
+                  style="margin-top:20px;margin-left:20px;color:white">{{ item.systemName }}</el-button>
+
+
+              </div>
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white;margin-left:25px">
+                {{
+                  item.infoKey + ": " + item.infoVal
+                }}</li>
+
+
+              <el-popover :width="600" effect="dark" @after-enter=echartInit() trigger="click" placement="top"
+                popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
+                <template #reference>
+                  <el-button size="medium" style="padding:10pxx;font-size: 25px;" type="primary" link> 查看详情 >
+                  </el-button>
+                </template>
+                <template #default>
+                  <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column ">
+                    <div>
+                      <p class="demo-rich-content__name" style="margin: 0; font-weight: 500;font-size: 25px;">
+                        {{ item.systemName }}
+                      </p>
+                      <p class="demo-rich-content__mention"
+                        style="margin: 0; font-size: 18px; color: var(--el-color-info)">
+                        @工地运企信息
+                      </p>
+                      <el-table :data="ycxt_tableData1" stripe style="width: 100%" max-height="500" :header-cell-style="{
+                        'font-size': '18px',
+                        'background': '#303133 !important',
+                        'color': '#ffffff',
+                        'border': 'none !important'
+                      }" :cell-style=changeCellStyle>
+                        <el-table-column prop="名称" label="名称" width="160" />
+                        <el-table-column prop="更新时间" label="更新时间" width="200" />
+                        <el-table-column prop="联系人" label="联系人" width="160" />
+                        <el-table-column prop="车辆数" label="车辆数" width="160" />
+                        <el-table-column prop="联系电话" label="联系电话" />
+
+
+                      </el-table>
+                      <p class="demo-rich-content__mention"
+                        style="margin: 0; font-size: 18px; color: var(--el-color-info)">
+                        @今日超速车辆列表
+                      </p>
+                      <el-table :data="ycxt_tableData2" stripe style="width: 100%" max-height="500" :header-cell-style="{
+                        'font-size': '18px',
+                        'background': '#303133 !important',
+                        'color': '#ffffff',
+                        'border': 'none !important'
+                      }" :cell-style=changeCellStyle>
+                        <el-table-column prop="超速位置" label="超速位置" width="180" />
+                        <el-table-column prop="速度" label="速度" width="200" />
+                        <el-table-column prop="车牌号" label="车牌号" width="180" />
+                        <el-table-column prop="超速时间" label="超速时间" />
+
+
+                      </el-table>
                       <!-- <div id="container_yyxt1" style="width: 1000px; height: 350px"></div>
                       <div id="container_yyxt2" style="width: 1000px; height: 350px"></div>
                       <div id="container_yyxt3" style="width: 500px; height: 350px;float:left"></div>
@@ -615,21 +621,23 @@
                 </template>
               </el-popover>
             </div>
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '共享单车管家'" :key="idx"
+            <div class="srzxInfo4" v-if="item.deptId == 1 && item.systemName == '共享单车管家'" :key="idx"
               :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:#e6e6e6;width:100%">
+              <div style="margin-bottom:0%;margin-top: 10%;font-size: 25px;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
+                  style="margin-top:10px;margin-left:20px;color:#2775b6">{{ item.systemName }}</el-button>
 
 
               </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
-                item.infoKey + ": " + item.infoVal
-              }}</li>
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white;margin-left:25px">
+                {{
+                  item.infoKey + ": " + item.infoVal
+                }}</li>
 
 
-              <el-popover :width="1200" effect="dark" @after-enter=echartInit_srzx() trigger="click" placement="left"
+
+              <el-popover :width="400" effect="dark" @after-enter=echartInit_srzx() trigger="click" placement="top"
                 popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                 <template #reference>
                   <el-button size="medium" style="padding:10pxx;font-size: 25px;" type="primary" link> 查看详情 >
@@ -645,17 +653,13 @@
                         style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                         @详情统计
                       </p>
-                      <div id="container_gxdc1" style="width: 500px; height: 350px;float:left"></div>
-                      <div id="container_gxdc2" style="width: 700px; height: 350px;float:left"></div>
+                      <div id="container_gxdc1" style="width: 400px; height: 300px;float:left"></div>
+                      <div id="container_gxdc2" style="width: 400px; height: 300px;float:left"></div>
 
 
                       <div style="display:flex ;clear:left">
 
-                        <dv-border-box6 v-for="item in item.data"
-                          style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
-                          <div>{{ item.infoKey }}</div>
-                          <div style="text-align:center">{{ item.infoVal }}</div>
-                        </dv-border-box6>
+
 
                       </div>
                     </div>
@@ -665,19 +669,20 @@
                 </template>
               </el-popover>
             </div>
-            <div class="srzxInfo" v-if="item.deptId == 1 && item.systemName == '街面图像综合应用管家'" :key="idx"
+            <div class="srzxInfo5" v-if="item.deptId == 1 && item.systemName == '街面图像综合应用管家'" :key="idx"
               :systemName="item.systemName" :url="item.url" :logo="item.systemLogo" :infoList="item.data"
-              :image="item.image" :to="item.to" :deptId="item.deptId">
-              <div style="margin-bottom:15%;margin-top: 10%;font-size: 25px;">
+              :image="item.image" :to="item.to" :deptId="item.deptId" style="background-color:#e6e6e6;width:100%">
+              <div style="margin-bottom:0%;margin-top: 10%;font-size: 25px;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
-                  style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
+                  style="margin-top:10px;margin-left:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
                 <el-button v-else class="el-button-null" type="text" @click="toSystem(item)" style="margin-top:10px">
                   {{ item.systemName }}</el-button>
 
               </div>
-              <li v-for="item in item.data" style="padding:10px;font-size: 25px;">{{
+              <li v-for="item in item.data" style="width:250px;font-size: 20px;padding:5px;color:white">{{
                 item.infoKey + ": " + item.infoVal
               }}</li>
+
 
 
               <el-popover :width="1000" effect="dark" @after-enter=echartInit() trigger="click" placement="left"
@@ -727,13 +732,13 @@
           <!-- <main-info v-if="item.deptId==2" :key="idx" :systemName="item.systemName" :url="item.url"
             :logo="item.systemLogo" :info-list="item.data" :image="item.image" :to="item.to" :deptId="item.deptId">
           </main-info> -->
-          <div class="jgzmInfo" v-if="item.deptId == 2" :key="idx" :systemName="item.systemName" :url="item.url"
+          <template v-if="item.deptId == 2" :key="idx" :systemName="item.systemName" :url="item.url"
             :logo="item.systemLogo" :infoList="item.data" :image="item.image" :to="item.to" :deptId="item.deptId">
 
-            <div v-if="item.systemName == '临街店铺管家'" style="display: flex;">
-              <el-image :src="require('@/assets/jgzm/' + idx + '-1.jpg')" style="width:30%" fit="scale-down">
-              </el-image>
-              <div style="padding:5px ;margin-top:2%;font-size: 25px;margin-left: 3%;">
+            <div class="jgzmInfo1" v-if="item.systemName == '临街店铺管家'" style="display: flex;">
+              <!-- <el-image :src="require('@/assets/jgzm/' + idx + '-1.jpg')" style="width:30%" fit="scale-down">
+              </el-image> -->
+              <div style="padding:5px ;margin-top:0%;font-size: 25px;margin-left: 0%;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="openSystem(item)"
                   style="margin-top:10px;margin-left:10%">{{ item.systemName }}</el-button>
 
@@ -744,7 +749,7 @@
                     item.infoVal
                   }}
                   </li> -->
-                  <el-popover v-for="(item, index) in item.data" placement="right-end" :width="600" trigger="hover"
+                  <el-popover v-for="(item, index) in item.data" placement="top" :width="360" trigger="hover"
                     effect="dark" popper-style="background-color: #1677D9;color: white;">
                     <template #reference>
                       <li style="font-size: 20px;padding: 5px;width:100%">{{
@@ -778,7 +783,7 @@
                     </div>
                   </el-popover>
 
-                  <el-popover :width="1200" placement="top" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
+                  <!-- <el-popover :width="400" placement="top" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
                     popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                     <template #reference>
                       <el-button class="el-button-succeed" link type="primary" style=" margin-top:10px;">
@@ -805,24 +810,24 @@
 
                           </div>
 
-                          <div id="container_ljdp1" style="width: 600px; height: 400px;float: left;"></div>
-                          <div id="container_ljdp2" style="width: 600px; height: 400px ;float:left"></div>
+                          <div id="container_ljdp1" style="width: 360px; height: 200px;float: left;"></div>
+                          <div id="container_ljdp2" style="width: 360px; height: 200px ;float:left"></div>
 
                         </div>
                       </div>
                     </template>
-                  </el-popover>
+                  </el-popover> -->
                 </div>
               </div>
             </div>
-            <div v-if="item.systemName == '景观照明管家'" style="display: flex;background-color:#e6e6e6;">
+            <div class="jgzmInfo2" v-if="item.systemName == '景观照明管家'" style="display: flex;background-color:#e6e6e6;">
 
-              <div style="padding:5px ;margin-top:2%;font-size: 20px;margin-left: 2%;">
+              <div style="padding:10px ;margin-top:0%;font-size: 20px;margin-left: 0%;">
                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="openSystem(item)"
                   style="margin-top:10px;margin-left:10%">{{ item.systemName }}</el-button>
                 <div style="margin-top: 1%;">
 
-                  <el-popover v-for="(item, index) in item.data" placement="right-end" :width="500" trigger="hover"
+                  <el-popover v-for="(item, index) in item.data" placement="top" :width="360" trigger="hover"
                     popper-class="my-el-popover" popper-style="background-color: #1677D9;color: white;">
                     <template #reference>
                       <li style="font-size: 20px;padding: 5px;width:100%">{{
@@ -855,49 +860,15 @@
                     item.infoVal
                   }}
                   </li> -->
-                  <el-popover :width="1200" placement="right" effect="dark" @after-enter=echartInit_jgzm() trigger="click"
-                    popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
-                    <template #reference>
-                      <el-button class="el-button-succeed" link type="primary" style=" margin-top:10px;">
-                        查看详情 ></el-button>
 
-                    </template>
-                    <template #default>
-                      <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column ">
-                        <div>
-                          <p class="demo-rich-content__name" style="margin: 0; font-weight: 500;font-size: 25px;">
-                            {{ item.systemName }}
-                          </p>
-                          <p class="demo-rich-content__mention"
-                            style="margin: 0; font-size: 18px; color: var(--el-color-info)">
-                            @详情统计
-                          </p>
-                          <div style="display:flex">
-
-                            <dv-border-box8 v-for="item in item.data"
-                              style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
-                              <div>{{ item.infoKey }}</div>
-                              <div style="text-align:center">{{ item.infoVal }}</div>
-                            </dv-border-box8>
-
-                          </div>
-
-                          <div id="container_jgzm" style="width: 600px; height: 400px;"></div>
-
-                          <!-- <div id="container_jgzm4" style="width: 600px; height: 400px ;float:left"></div> -->
-
-                        </div>
-                      </div>
-                    </template>
-                  </el-popover>
                 </div>
               </div>
-              <el-image fit="scale-down" :src="require('@/assets/jgzm/' + idx + '-1.jpg')"
+              <!-- <el-image fit="scale-down" :src="require('@/assets/jgzm/' + idx + '-1.jpg')"
                 style="width:30%;float: right;margin-left: 50%; ">
-              </el-image>
+              </el-image> -->
             </div>
 
-          </div>
+          </template>
 
         </template>
 
@@ -956,7 +927,7 @@
                   <li v-for="item in item.data" style="font-size: 20px;padding: 5px;">
                     {{ item.infoKey + ": " + item.infoVal }}
                   </li>
-                  <el-popover :width="1200" placement="right" effect="dark" @after-enter=echartInit() trigger="click"
+                  <el-popover :width="400" placement="top" effect="dark" @after-enter=echartInit() trigger="click"
                     popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                     <template #reference>
                       <el-button class="el-button-succeed" link type="text" style=" margin-top:10px;color:#e6e6e6">
@@ -975,16 +946,16 @@
                           </p>
                           <div style="display:flex">
 
-                            <dv-border-box8 v-for="item in item.data"
+                            <!-- <dv-border-box8 v-for="item in item.data"
                               style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
                               <div>{{ item.infoKey }}</div>
                               <div style="text-align:center">{{ item.infoVal }}</div>
-                            </dv-border-box8>
+                            </dv-border-box8> -->
 
                           </div>
 
-                          <div id="container" style="width: 600px; height: 400px;float: left;"></div>
-                          <div id="container1" style="width: 600px; height: 400px ;float:left"></div>
+                          <div id="container" style="width: 360px; height: 300px;float: left;"></div>
+                          <div id="container1" style="width: 360px; height: 300px ;float:left"></div>
 
                         </div>
                       </div>
@@ -1002,7 +973,7 @@
                   <li v-for="item in item.data" style="font-size: 20px;padding: 5px;margin-top: 0px;">
                     {{ item.infoKey + ":" + item.infoVal }}
                   </li>
-                  <el-popover :width="1200" effect="dark" trigger="click" placement="top"
+                  <el-popover :width="800" effect="dark" trigger="click" placement="top"
                     popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                     <template #reference>
                       <el-button class="el-button-succeed" link type="text" style=" margin-top:0px;color:#e6e6e6">
@@ -1037,12 +1008,12 @@
                             'color': '#ffffff',
                             'border': 'none !important'
                           }" :cell-style=changeCellStyle>
-                            <el-table-column prop="event_name" label="事件名称" width="180" />
-                            <el-table-column prop="modify_time" label="确认时间" width="280" />
-                            <el-table-column prop="description" label="问题描述" width="180" />
-                            <el-table-column prop="create_time" label="创建时间" width="280" />
-                            <el-table-column prop="creator" label="创建者" width="180" />
-                            <el-table-column prop="tags" label="标签" />
+                            <el-table-column prop="event_name" label="事件名称" width="140" />
+                            <el-table-column prop="modify_time" label="确认时间" width="240" />
+                            <el-table-column prop="description" label="问题描述" width="140" />
+                            <el-table-column prop="create_time" label="创建时间" width="240" />
+                            <el-table-column prop="creator" label="创建者" width="140" />
+                            <el-table-column prop="tags" label="标签" width="100" />
 
                           </el-table>
                           <!-- <p><dv-charts :option="config_szcg" style="width:200px;height: 200px;" />a</p> -->
@@ -1062,7 +1033,7 @@
               </div>
 
               <div class="szcg" v-if="item.systemName == '数字化城市信息管家'">
-                <div style=" padding: 5px;margin-top:5%;margin-left: 15%;width: 100%;height: 100%;">
+                <div style=" padding: 5px;margin-top:5%;margin-left: 12%;width: 100%;height: 100%;">
                   <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
                     style="margin-top:10px;color:#e6e6e6">{{ item.systemName }}</el-button>
                   <el-button v-else class="el-button-null" type="text" @click="toSystem(item)" style="margin-top:10px">
@@ -1071,7 +1042,7 @@
                     {{ item.infoKey + ":" + item.infoVal }}
                   </li>
 
-                  <el-popover :width="1200" placement="top" effect="dark" @after-enter=echartInit() trigger="click"
+                  <el-popover :width="380" placement="top" effect="dark" @after-enter=echartInit() trigger="click"
                     popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                     <template #reference>
                       <el-button class="el-button-succeed" link type="text" style=" margin-top:0px;color:#e6e6e6">
@@ -1088,16 +1059,12 @@
                             style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                             @详情统计
                           </p>
-                          <div id="container2" style="width: 1200px; height: 350px"></div>
-                          <div id="container3" style="width: 400px; height: 350px;float: left;"></div>
-                          <div id="container4" style="width: 800px; height: 350px;float: right"></div>
+                          <div id="container2" style="width: 380px; height: 300px"></div>
+                          <div id="container3" style="width: 340px; height: 300px;float: left;"></div>
+                          <div id="container4" style="width: 340px; height: 300px;float: left"></div>
                           <div style="display:flex ;clear:left">
 
-                            <dv-border-box6 v-for="item in item.data"
-                              style="font-size: 20px;padding: 10px;margin-top: 0px;width:100%">
-                              <div>{{ item.infoKey }}</div>
-                              <div style="text-align:center">{{ item.infoVal }}</div>
-                            </dv-border-box6>
+
 
                           </div>
                         </div>
@@ -1123,7 +1090,7 @@
                   <li v-for="item in item.data" style="font-size: 20px;padding: 5px;margin-top: 0px;">
                     {{ item.infoKey + ":" + item.infoVal }}
                   </li>
-                  <el-popover :width="1200" placement="top" effect="dark" trigger="click"
+                  <el-popover :width="360" placement="top" effect="dark" trigger="click" @after-enter=echartInit_syd()
                     popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
                     <template #reference>
                       <el-button class="el-button-succeed" link type="text" style=" margin-top:0px;color:#e6e6e6">
@@ -1139,9 +1106,10 @@
                             style="margin: 0; font-size: 18px; color: var(--el-color-info)">
                             @详情统计
                           </p>
-                          <p v-for="item in item.data" style="font-size: 20px;padding: 5px;margin-top: 0px;">
-                            {{ item.infoKey + ":" + item.infoVal }}
-                          </p>
+                          <div id="container_syd1" style="width: 360px; height: 290px;"></div>
+                          <div id="container_syd2" style="width: 360px; height: 280px;"></div>
+
+
                           <!-- <p><dv-charts :option="config_szcg" style="width:200px;height: 200px;" />a</p> -->
                         </div>
 
@@ -1207,7 +1175,7 @@ import MainInfo from '@/views/home/components/MainInfo.vue'
 import ClassItem from '@/views/home/components/ClassItem.vue'
 import Header from "@/components/Header.vue"
 import { get, getDeptList, getSystemList, changePassword } from '@/api/home.js'
-import { getToken } from "@/api/syd";
+import { getToken, getMainSyd } from "@/api/syd";
 import { getTokenGxdc, getMainGxdc, getCompany } from "@/api/gxdc";
 import { params } from '@/store/store.js'
 import * as echarts from "echarts";
@@ -1220,6 +1188,8 @@ import { getAllEvents } from "@/api/tcwt";
 import { getSitesData } from "@/api/cclj";
 import { getMainLjz, getSum, getWarning } from "@/api/ljz";
 import { getCarLists, getAiAlarm } from "@/api/hwzy";
+import { getCheckRate, getCntStatus } from "@/api/ddzh";
+import { getCompanyDust, getOverSpeed } from "@/api/ycxt";
 
 import axios from 'axios'
 const aiUrl = ref('')
@@ -1249,6 +1219,210 @@ const serviceCount = ref([])
 const otherCount = ref([])
 const ljz_table2 = ref([])
 const hwzy_tableData = ref([])
+const syd_data = ref([])
+const ycxt_tableData1 = ref([])
+const ycxt_tableData2 = ref([])
+const ddzh_tableData2 = ref([])
+const ddzh_tableData1 = ref([])
+
+const echartInit_ddzh = () => {
+  document.getElementById("container_ddzh1").removeAttribute("_echarts_instance_");
+  var myChart_ddzh1 = echarts.init(document.getElementById("container_ddzh1"));
+  //document.getElementById("container_ddzh2").removeAttribute("_echarts_instance_");
+  //var myChart_ddzh2 = echarts.init(document.getElementById("container_ddzh2"));
+  var option1 = {
+    title: {
+      text: '打卡率统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    yAxis: {
+      type: 'category',
+      data: [ddzh_tableData1.value[0].department, ddzh_tableData1.value[1].department, ddzh_tableData1.value[2].department, ddzh_tableData1.value[3].department
+        , ddzh_tableData1.value[4].department, ddzh_tableData1.value[5].department, ddzh_tableData1.value[6].department,
+      ddzh_tableData1.value[7].department,
+      ddzh_tableData1.value[8].department, ddzh_tableData1.value[9].department, ddzh_tableData1.value[10].department, ddzh_tableData1.value[11].department, ddzh_tableData1.value[12].department,
+      ddzh_tableData1.value[13].department, ddzh_tableData1.value[14].department, ddzh_tableData1.value[15].department, ddzh_tableData1.value[16].department,
+      ddzh_tableData1.value[17].department, ddzh_tableData1.value[18].department, ddzh_tableData1.value[19].department, ddzh_tableData1.value[20].department,
+      ddzh_tableData1.value[21].department, ddzh_tableData1.value[22].department, ddzh_tableData1.value[23].department, ddzh_tableData1.value[24].department,
+      ddzh_tableData1.value[25].department, ddzh_tableData1.value[26].department, ddzh_tableData1.value[27].department, ddzh_tableData1.value[28].department,
+      ],
+      axisLabel: {
+        //x轴文字的配置
+        show: true,
+        interval: 0,//使x轴文字显示全
+        rotate: 40
+      }
+
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true,
+      textStyle: {
+        color: 'white'
+      }
+    },
+    xAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: [(ddzh_tableData1.value[0].checkRate * 100).toFixed(2), (ddzh_tableData1.value[1].checkRate * 100).toFixed(2), (ddzh_tableData1.value[2].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[3].checkRate * 100).toFixed(2), (ddzh_tableData1.value[4].checkRate * 100).toFixed(2), (ddzh_tableData1.value[5].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[6].checkRate * 100).toFixed(2), (ddzh_tableData1.value[7].checkRate * 100).toFixed(2), (ddzh_tableData1.value[8].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[9].checkRate * 100).toFixed(2), (ddzh_tableData1.value[10].checkRate * 100).toFixed(2), (ddzh_tableData1.value[11].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[12].checkRate * 100).toFixed(2), (ddzh_tableData1.value[13].checkRate * 100).toFixed(2), (ddzh_tableData1.value[14].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[15].checkRate * 100).toFixed(2), (ddzh_tableData1.value[16].checkRate * 100).toFixed(2), (ddzh_tableData1.value[17].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[18].checkRate * 100).toFixed(2), (ddzh_tableData1.value[19].checkRate * 100).toFixed(2), (ddzh_tableData1.value[20].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[21].checkRate * 100).toFixed(2), (ddzh_tableData1.value[22].checkRate * 100).toFixed(2), (ddzh_tableData1.value[23].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[24].checkRate * 100).toFixed(2), (ddzh_tableData1.value[25].checkRate * 100).toFixed(2), (ddzh_tableData1.value[26].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[27].checkRate * 100).toFixed(2), (ddzh_tableData1.value[28].checkRate * 100).toFixed(2)]
+        ,
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)'
+        },
+        emphasis: {
+          focus: 'series'
+        }, textStyle: {
+          color: 'white'
+        },
+        label: {
+          show: true
+        },
+
+      }]
+  }
+  var option2 = {}
+
+  myChart_ddzh1.setOption(option1)
+  myChart_ddzh1.setOption(option2)
+
+}
+const echartInit_syd = () => {
+  document.getElementById("container_syd1").removeAttribute("_echarts_instance_");
+  var myChart_syd1 = echarts.init(document.getElementById("container_syd1"));
+  document.getElementById("container_syd2").removeAttribute("_echarts_instance_");
+  var myChart_syd2 = echarts.init(document.getElementById("container_syd2"));
+  var option_syd1 = {
+    title: {
+      text: '案件分析日统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    series: [
+      {
+        name: '案件',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 35,
+            fontWeight: 'bold',
+
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: syd_data.value[2].infoVal, name: '今日办结案件数量' },
+          { value: syd_data.value[0].infoVal - syd_data.value[2].infoVal, name: '今日待办案件数量' },
+          // { value: 580, name: 'Email' },
+          // { value: 484, name: 'Union Ads' },
+          // { value: 300, name: 'Video Ads' }
+        ]
+      }
+    ]
+  }
+  myChart_syd1.setOption(option_syd1)
+  var option_syd2 = {
+    title: {
+      text: '案件分析月统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    series: [
+      {
+        name: '案件',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 35,
+            fontWeight: 'bold',
+
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: syd_data.value[3].infoVal, name: '本月办结案件数量' },
+          { value: syd_data.value[1].infoVal - syd_data.value[3].infoVal, name: '本月待办案件数量' },
+          // { value: 580, name: 'Email' },
+          // { value: 484, name: 'Union Ads' },
+          // { value: 300, name: 'Video Ads' }
+        ]
+      }
+    ]
+  }
+  myChart_syd2.setOption(option_syd2)
+}
 const validatePass2 = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请再次输入密码！'))
@@ -1329,6 +1503,7 @@ const form = reactive({
 })
 const confirmChangePasswordVisible = ref(false)
 const changePasswordDialog = ref(false)
+
 const echartInit_srzx = () => {
   document.getElementById("container_gxdc1").removeAttribute("_echarts_instance_");
 
@@ -1630,14 +1805,20 @@ const echartInit_cclj = () => {
         , cclj_sites.value[4].street, cclj_sites.value[5].street, cclj_sites.value[6].street,
       cclj_sites.value[7].street,
       cclj_sites.value[8].street, cclj_sites.value[9].street, cclj_sites.value[10].street, cclj_sites.value[11].street, cclj_sites.value[12].street
-      ]
+      ],
+      axisLabel: {
+        //x轴文字的配置
+        show: true,
+        interval: 0,//使x轴文字显示全
+        rotate: 20
+      }
     },
     yAxis: {
       type: 'value'
     },
     series: [
       {
-        data: [cclj_sites.value[0].street, cclj_sites.value[1].street_site_num, cclj_sites.value[2].street_site_num, cclj_sites.value[3].street_site_num
+        data: [cclj_sites.value[0].street_site_num, cclj_sites.value[1].street_site_num, cclj_sites.value[2].street_site_num, cclj_sites.value[3].street_site_num
           , cclj_sites.value[4].street_site_num, cclj_sites.value[5].street_site_num, cclj_sites.value[6].street_site_num,
         cclj_sites.value[7].street_site_num,
         cclj_sites.value[8].street_site_num, cclj_sites.value[9].street_site_num, cclj_sites.value[10].street_site_num, cclj_sites.value[11].street_site_num, cclj_sites.value[12].street_site_num],
@@ -1842,11 +2023,11 @@ const echartInit_jgzm = () => {
 
 
 }
-function toSystemHjws(item) {
-  window.open(item.url)
+// function toSystemHjws(item) {
+//   window.open(item.url)
 
 
-}
+// }
 const echartInit = () => {
   document.getElementById("container").removeAttribute("_echarts_instance_");
   document.getElementById("container1").removeAttribute("_echarts_instance_");
@@ -2433,20 +2614,39 @@ const hwzy_tableData1 = ref([])
 const sydUrl = ref("https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token=")
 onBeforeMount(() => {
 
+  getMainSyd().then(data => {
+    syd_data.value = data
+    console.log(syd_data.value)
+  })
+
+  getCheckRate().then(data => {
+    ddzh_tableData1.value = data
+  })
+  getCntStatus().then(data => {
+    ddzh_tableData2.value = data
+
+
+  })
   getAllEvents(today, tomorrow).then(data => {
     tcwtTableData.value = data
   })
   config_szcg.series[0].data[0].value = 90 %
-    console.log(config_szcg.series[0].data[0].value)
-  getTokenGxdc().then(data => {
-    gxdcUrl.value = data
-    gxdc.url = 'http://1.14.108.100/manage/?token=' + gxdcUrl.value
-  })
+    getTokenGxdc().then(data => {
+      gxdcUrl.value = data
+      gxdc.url = 'http://1.14.108.100/manage/?token=' + gxdcUrl.value
+    })
   getAiAlarm().then(data => {
     hwzy_tableData1.value = data
-    console.log(hwzy_tableData1.value)
+  })
+  getCompanyDust().then(data => {
+    ycxt_tableData1.value = data
+  })
+  getOverSpeed().then(data => {
+    if (data != [])
+      ycxt_tableData2.value = data
   })
 })
+
 const imgVisible = ref(true)
 //用户信息
 const user = reactive({
@@ -2460,9 +2660,12 @@ let date = new Date().toLocaleDateString();
 var a = new Array("日", "一", "二", "三", "四", "五", "六");
 var str = new Date().getDay();
 var week = "星期" + a[str];
-function openSystem(item) {
-  window.open(item.url)
+function toSystem(item) {
+
 }
+// function openSystem(item) {
+//   window.open(item.url)
+// }
 // function toSystem(item) {
 //   if(item.isLogin == '0')
 //   router.push({ name: item.to, params: item.systemName })
@@ -2473,73 +2676,73 @@ function openSystem(item) {
 //   window.open(gxdc.url)
 // }
 //方法重写，摒弃三级页面，后续如果需要用上面这个
-function toSystem(item) {  //每个子系统登录方式不一样
-  console.log(item.systemId)
-  if (item.systemId != '14' && item.systemId != '16' && item.systemId != '17' && item.systemId != '4' && item.systemId != '12') {
-    console.log(item.systemName)
-    if (item.url === '') {
+// function toSystem(item) {  //每个子系统登录方式不一样
+//   console.log(item.systemId)
+//   if (item.systemId != '14' && item.systemId != '16' && item.systemId != '17' && item.systemId != '4' && item.systemId != '12') {
+//     console.log(item.systemName)
+//     if (item.url === '') {
 
-      ElMessage({
-        showClose: true,
-        message: '正在开发中...'
-      })
-    } else
-      window.open(item.url)
-  }
-  if (item.systemId == '14') //共享单车
-    window.open(gxdc.url)
-  if (item.systemId == '16') {   //诉易达
+//       ElMessage({
+//         showClose: true,
+//         message: '正在开发中...'
+//       })
+//     } else
+//       window.open(item.url)
+//   }
+//   if (item.systemId == '14') //共享单车
+//     window.open(gxdc.url)
+//   if (item.systemId == '16') {   //诉易达
 
-    getToken().then(data => {
-      token.value = data
-      var sydUrl = "https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token="
-      sydUrl = sydUrl + token.value
-      syd.url = sydUrl
-      console.log(syd.url)
-      window.open(syd.url)
-    })
+//     getToken().then(data => {
+//       token.value = data
+//       var sydUrl = "https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token="
+//       sydUrl = sydUrl + token.value
+//       syd.url = sydUrl
+//       console.log(syd.url)
+//       window.open(syd.url)
+//     })
 
-  }
-  if (item.systemId == '17' || item.systemId == '4') {
-    getAiUrl().then(data => {
-      aiUrl.value = data.message
-      console.log(data, aiUrl)
-      window.open(aiUrl.value)
-    })
+//   }
+//   if (item.systemId == '17' || item.systemId == '4') {
+//     getAiUrl().then(data => {
+//       aiUrl.value = data.message
+//       console.log(data, aiUrl)
+//       window.open(aiUrl.value)
+//     })
 
-  }
-  if (item.systemId == '12') {
-    var roles = []
-    roles = params.roleId.split(",")
-    console.log(roles.indexOf('84'))
-    // console.log(params.roleId)
-    if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
-      var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
-      window.open(ddzh_url)
-    }
-    if (roles.indexOf('93') != -1) {
-      var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
-      window.open(ddzh_url)
-    }
+//   }
+//   if (item.systemId == '12') {
+//     var roles = []
+//     roles = params.roleId.split(",")
+//     console.log(roles.indexOf('84'))
+//     // console.log(params.roleId)
+//     if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
+//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
+//       window.open(ddzh_url)
+//     }
+//     if (roles.indexOf('93') != -1) {
+//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
+//       window.open(ddzh_url)
+//     }
 
-    if (roles.indexOf('120') != -1) {
-      var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
-      window.open(ddzh_url)
-    }
-    if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
-      var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
-      window.open(ddzh_url)
-    }
-    else {
-      var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
-      console.log(ddzh_url)
-      window.open(item.url)
-    }
+//     if (roles.indexOf('120') != -1) {
+//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
+//       window.open(ddzh_url)
+//     }
+//     if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
+//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
+//       window.open(ddzh_url)
+//     }
+//     else {
+//       var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
+//       console.log(ddzh_url)
+//       window.open(item.url)
+//     }
 
-  } //调度指挥
+//   } //调度指挥
 
 
-}
+// }
 const ljz_table1 = ref([])
 
 //部门列表, 从后端获取
@@ -2700,13 +2903,29 @@ function logout() {
 
 }
 
-.jgzmInfo {
+.jgzmInfo2 {
+  padding: 15px;
+
   width: 100%;
-  height: auto;
-  margin-left: 5%;
+  height: 300px;
+  margin-top: 0%;
   display: flex;
   padding: 5px;
-  color: black;
+  color: white;
+  background-image: url('@/assets/home/jgzm2.jpg');
+  background-size: cover;
+}
+
+.jgzmInfo1 {
+  padding: 15px;
+  width: 100%;
+  height: 300px;
+  margin-top: 10%;
+  display: flex;
+  padding: 5px;
+  color: white;
+  background-image: url('@/assets/home/jgzm1.jpg');
+  background-size: cover;
 }
 
 .szcgInfo {
@@ -2720,20 +2939,101 @@ function logout() {
 
 }
 
-.srzxInfo {
+.srzxInfo0 {
   width: 16%;
-  height: 480px;
-  padding: 5px;
+  height: 400px;
+  padding: 0px;
   text-align: center;
-  color: white
+  color: white;
+  background-image: url('@/assets/home/srzx0.png');
+  background-size: cover;
+
+  opacity: 0.9;
+
 }
 
+.srzxInfo1 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx1.png');
+  opacity: 0.9;
+  background-size: cover;
+
+}
+
+
+
+.srzxInfo2 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx2.png');
+  background-size: cover;
+  opacity: 0.9;
+
+}
+
+.srzxInfo3 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx3.png');
+  background-size: cover;
+  opacity: 0.9;
+
+}
+
+.srzxInfo3 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx3.png');
+  background-size: cover;
+  opacity: 0.9;
+
+}
+
+.srzxInfo4 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx4.jpg');
+  background-size: cover;
+  opacity: 0.9;
+
+}
+
+.srzxInfo5 {
+  width: 16%;
+  height: 400px;
+  padding: 0px;
+  text-align: center;
+  color: white;
+  background-image: url('@/assets/home/srzx5.jpg');
+  background-size: cover;
+  opacity: 0.9;
+
+}
+
+
+
 .img-wrapper {
-  background-image: url('@/assets/srzx/total.png');
+  /* background-image: url('@/assets/srzx/bg.png');
   background-size: 100%;
-  width: 100%;
-  display: flex;
-  height: 580px;
+  width: 100%; */
+  /* background-color: #004B8C; */
+  width: 340px;
 }
 
 .description {
@@ -2756,7 +3056,7 @@ function logout() {
   /*当屏幕尺寸变小时，各个子系统汇总模块自动换行*/
   font-size: 40px;
   color: #1677D9;
-  margin-left: 5%;
+  margin-left: 0%;
   margin-top: 15px;
 }
 
@@ -2773,20 +3073,23 @@ function logout() {
 }
 
 .text-title {
-  margin-left: 20px;
+  margin-top: 30px;
+
+  margin-left: 10px;
   font-size: large;
   color: #fff;
-  line-height: 60px;
-  width: 30%;
-  padding: 5px;
+  line-height: 10px;
+  width: 400px;
+  padding: 0px;
+  font-size: 18px
 }
 
 .text-logo {
-  margin-left: 20px;
+  margin-left: 0px;
   font-size: large;
   color: #fff;
   line-height: 60px;
-  width: 30%;
+  width: 250px;
   padding: 5px;
 }
 
@@ -2796,7 +3099,7 @@ function logout() {
 }
 
 .el-dropdown-link {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .container {
@@ -2837,7 +3140,7 @@ function logout() {
   /**保持子系统栏与标题栏背景色一致 */
   display: flex;
   flex-wrap: wrap;
-  padding: 25px;
+  padding: 5px;
   text-align: center;
   float: right;
   margin-left: 5%;
@@ -2989,7 +3292,7 @@ function logout() {
 .infoList li span {
   font-family: '楷体';
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.5rem;
   color: #EA9AB5;
 }
 

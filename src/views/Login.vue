@@ -106,8 +106,8 @@ const login = () => {
 
 <style scoped>
 .login-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-image: url("@/assets/login/login-background.png");
   background-size: 100% 100%;
 }
@@ -123,9 +123,9 @@ const login = () => {
 }
 
 .login-header-title {
-  width: 32.1vw;
+  width: 38vw;
   height: 5.1vh;
-  font-size: 1.8rem;
+  font-size: 20px;
   color: #FFFFFF;
   font-family: Alibaba PuHuiTi;
   text-align: center;
@@ -135,7 +135,7 @@ const login = () => {
 }
 
 .login-box {
-  width: 35vw;
+  width: 10vw;
   height: 53.7vh;
   background-image: url("@/assets/login/login-border.png");
   background-size: cover;
@@ -146,88 +146,89 @@ const login = () => {
 }
 
 .login-box-title {
-  width: 6.7vw;
+  width: 20.7vw;
   height: 4.2vh;
   font-family: PingFangSC-Medium;
-  font-size: 1.2rem;
+  font-size: 19.2px;
   color: #FFFFFF;
   position: absolute;
   top: 13.7vh;
-  right: 13.1vw;
-  left: 15.2vw;
+  right: 3.1vw;
+  left: 1vw;
 }
 
 .login-box-logo {
-  width: 1.7vw;
+  width: 8vw;
   height: 3vh;
   position: absolute;
-  top: 14.4vh;
-  left: 13.1vw;
-  right: 20.2vw;
-  margin-right: 0.4vw;
+  top: 13.4vh;
+  left: -8vw;
+  right: 4.2vw;
+  margin-right: 0.2vw;
 }
 
 .username-input {
-  width: 18.7vw;
-  height: 1.8vh;
+  width: 50vw;
+  height: 1.4vh;
   position: absolute;
   top: 20.4vh;
-  left: 7.1vw;
+  left: -18vw;
+  right: 5vw;
   background: rgba(62, 181, 228, 0.25);
   border: 1px solid #22AEE6;
   outline: none;
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 0.5rem;
   background-image: url("@/assets/login/username.png");
   background-repeat: no-repeat;
   background-position: left 0.8vw top 1.3vh;
-  padding-left: 2.1vw;
+  padding-left: 4.1vw;
   padding-top: 1.3vh;
   padding-bottom: 1.3vh;
 }
 
 .username-input::-webkit-input-placeholder {
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 .password-input {
-  width: 18.7vw;
+  width: 50vw;
   height: 1.8vh;
   position: absolute;
   top: 27vh;
-  left: 7.1vw;
+  left: -18vw;
   background: rgba(62, 181, 228, 0.25);
   border: 1px solid #22AEE6;
   outline: none;
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 14px;
 
   background-image: url("@/assets/login/password.png");
   background-repeat: no-repeat;
   background-position: left 0.8vw top 1.3vh;
-  padding-left: 2.1vw;
+  padding-left: 5.1vw;
   padding-top: 1.3vh;
   padding-bottom: 1.3vh;
 }
 
 .password-input::-webkit-input-placeholder {
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 input[type="checkbox"] {
-  width: 0.7vw;
+  width: 2.7vw;
   height: 1.3vh;
   position: absolute;
   top: 32.9vh;
-  left: 7.1vw;
+  left: -8vw;
   background: rgba(62, 181, 228, 0.25) !important;
   border: 1px solid #22AEE6 !important;
 }
 
 input[type="checkbox"]::after {
-  width: 0.7vw;
+  width: 1.7vw;
   height: 1.3vh;
   position: absolute;
   top: 32.9vh;
@@ -237,13 +238,13 @@ input[type="checkbox"]::after {
 }
 
 .remember-password-text {
-  width: 5vw;
+  width: 15vw;
   height: 1.9vh;
   position: absolute;
   top: 32.6vh;
-  left: 8.2vw;
+  left: -3vw;
   color: #FFFFFF;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-family: PingFangSC-Regular;
 }
 
@@ -252,7 +253,7 @@ input[type="checkbox"]::after {
   height: 4.4vh;
   position: absolute;
   top: 36.7vh;
-  left: 7.1vw;
-  font-size: 0.875rem;
+  left: -2vw;
+  font-size: 14px;
 }
 </style>

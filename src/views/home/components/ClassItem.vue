@@ -44,7 +44,7 @@ div.tip-class {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-    margin-left: 40px;
+    margin-left: 20px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -52,7 +52,7 @@ div.tip-class {
 #item {
     position: relative;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     color: #333;
 }
 
@@ -87,7 +87,7 @@ div.tip-class {
 }
 
 .subsysName {
-    font-size: 28px;
+    font-size: 20px;
     padding: 5px;
     display: inline-block;
 }

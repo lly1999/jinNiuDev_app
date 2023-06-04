@@ -4,7 +4,7 @@
     <!-- 商标栏-->
     <el-row>
       <!--商标-->
-      <el-col :span="11">
+      <el-col :span="24">
         <div>
           <el-page-header class="page-header" @back="goback" :icon="null">
             <!-- <template #icon>
@@ -21,16 +21,7 @@
         </div>
       </el-col>
       <!-- 时间 -->
-      <el-col :span="5" class="time">
-        <slot name="time"></slot>
-      </el-col>
-                  <el-col :span="3" class="warning">
-        <slot name="warning"></slot>
-      </el-col>
-      <!--用户信息-->
-      <el-col :span="5" class="userinfo">
-        <slot name="userinfo"></slot>
-      </el-col>
+
     </el-row>
   </el-header>
 </template>
@@ -48,7 +39,7 @@ function goback() {
   font-size: 22px;
   background-color: #004B8C;
   color: #fff;
-  height: 55px;
+  height: 30px;
 }
 
 :deep(.page-header div::after) {
@@ -60,7 +51,7 @@ function goback() {
 }
 
 .el-menu-item {
-  line-height: 40px;
+  line-height: 20px;
 }
 
 .el-dropdown-link {

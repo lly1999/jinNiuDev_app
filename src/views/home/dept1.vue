@@ -6,40 +6,14 @@
             <template #title>
                 <span class="text-title">成都市金牛区综合行政执法局,欢迎您~</span>
             </template>
-            <!-- 时间 -->
 
-            <template #time>
-                <div class="text-week">
-                    今天是: {{ date }} {{ week }}
-                </div>
-            </template>
-
-            <!-- 用户信息 -->
-            <template #userinfo>
-                <div class="router">
-                    <el-button class="buttonToMap" plain link color="fff" @click="toMap" size="large">前往地图主页</el-button>
-                </div>
-                <el-dropdown>
-                    <span class="el-dropdown-link">
-                        {{ params.username + "（" + params.role + "）" }}
-                        <el-icon>
-                            <ArrowDown />
-                        </el-icon>
-                    </span>
-                    <template #dropdown>
-                        <el-dropdown-menu>
-                            <el-dropdown-item @click="logout">退出</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </template>
-                </el-dropdown>
-            </template>
         </Header>
         <el-container>
             <!-- 大类和子系统栏 -->
             <el-header class="navHeader">
                 <!-- logo -->
 
-                <el-image class="text-logo" :src="require('@/assets/home/logo-title.jpg')" fit="scale-down"></el-image>
+                <!-- <el-image class="text-logo" :src="require('@/assets/home/logo-title.jpg')" fit="scale-down"></el-image> -->
                 <div class="classification" v-if="showDepts">
                     <class-item v-for="dept in depts" :key="dept.deptId"
                         @click="switchShowDepts(dept.deptId, dept.deptName)" :logo="dept.deptLogo" :name="dept.deptName"
@@ -642,12 +616,15 @@ const six_clicked = () => {
 }
 
 .text-title {
-    margin-left: 20px;
+    margin-top: 30px;
+
+    margin-left: 10px;
     font-size: large;
     color: #fff;
-    line-height: 60px;
-    width: 30%;
-    padding: 5px;
+    line-height: 10px;
+    width: 400px;
+    padding: 0px;
+    font-size: 18px
 }
 
 .text-logo {
