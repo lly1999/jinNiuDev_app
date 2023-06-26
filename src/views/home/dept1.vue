@@ -20,8 +20,8 @@
                         styleName="subsysName"></class-item>
                 </div>
                 <!-- <div class="subsys" v-if="!showDepts">
-          <div class="subdepts">{{choosedDeptName}}</div>
-        </div> -->
+<div class="subdepts">{{choosedDeptName}}</div>
+</div> -->
                 <div class="subsys" v-if="!showDepts">
 
                     <class-item v-for="system in choosedSystems" :key="system.systemId"
@@ -57,15 +57,30 @@
 
 
                 <!-- <div class="classification-title" v-if="choosedDept==-1|choosedDept==0">
-          环境卫生
-          <main-info v-for="(item, idx) in choosedSystems" :key="idx" :systemName="item.systemName" :url="item.url"
-            :logo="item.systemLogo" :info-list="item.data" :image="item.image" :to="item.to" :deptId="item.deptId">
-          </main-info>
-        </div> -->
+环境卫生
+<main-info v-for="(item, idx) in choosedSystems" :key="idx" :systemName="item.systemName" :url="item.url"
+:logo="item.systemLogo" :info-list="item.data" :image="item.image" :to="item.to" :deptId="item.deptId">
+</main-info>
+</div> -->
                 <!-- <el-divider v-if="choosedDept==-1|choosedDept==0" /> -->
 
                 <div class="city-scape">
                     <div class="city-scape-left">
+                        <!-- <div class="city-scape-left-one" @click="one_clicked">
+            <div
+                :class="one_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
+                <div
+                    :class="one_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
+                    1</div>
+            </div>
+            <div
+                :class="one_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'">
+                <p>综合行政管理</p>
+                <p>管理执法智慧服务管家</p>
+            </div>
+            <div :class="one_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
+        </div> -->
+
                         <div class="city-scape-left-one" @click="one_clicked">
                             <div
                                 :class="one_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
@@ -73,10 +88,9 @@
                                     :class="one_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
                                     1</div>
                             </div>
-                            <div
-                                :class="one_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'">
-                                <p>综合行政管理</p>
-                                <p>管理执法智慧服务管家</p>
+                            <div :class="one_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
+                                style="top: 33px; left: 30px">
+                                餐饮油烟管家
                             </div>
                             <div :class="one_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
                         </div>
@@ -86,28 +100,14 @@
                                 :class="two_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
                                 <div
                                     :class="two_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
-                                    2</div>
-                            </div>
-                            <div :class="two_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
-                                style="top: 38px; left: 60px">
-                                餐饮油烟管家
-                            </div>
-                            <div :class="two_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
-                        </div>
-
-                        <div class="city-scape-left-three" @click="three_clicked">
-                            <div
-                                :class="three_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
-                                <div
-                                    :class="three_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
-                                    3
+                                    2
                                 </div>
                             </div>
-                            <div :class="three_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
-                                style="top: 38px; left: 60px">
+                            <div :class="two_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
+                                style="top: 33px; left: 30px">
                                 调度指挥管家
                             </div>
-                            <div :class="three_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
+                            <div :class="two_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
                         </div>
 
                         <div class="city-scape-left-four" @click="four_clicked">
@@ -119,45 +119,45 @@
                                 </div>
                             </div>
                             <div :class="four_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
-                                style="top: 25px; left: 60px">
+                                style="top: 20px; left: 30px">
                                 <p>扬尘治理</p>
                                 <p>大数据协同管家</p>
                             </div>
                             <div :class="four_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
                         </div>
 
-                        <div class="city-scape-left-five" @click="five_clicked">
+                        <div class="city-scape-left-three" @click="three_clicked">
                             <div
-                                :class="five_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
+                                :class="three_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
                                 <div
-                                    :class="five_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
-                                    5
+                                    :class="three_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
+                                    3
                                 </div>
                             </div>
-                            <div :class="five_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
-                                style="top: 37px; left: 60px">
+                            <div :class="three_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
+                                style="top: 32px; left: 30px">
                                 共享单车管家
                             </div>
-                            <div :class="five_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
+                            <div :class="three_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
                         </div>
 
-                        <div class="city-scape-left-six" @click="six_clicked">
-                            <div
-                                :class="six_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
-                                <div
-                                    :class="six_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
-                                    6</div>
-                            </div>
-                            <div :class="six_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
-                                style="top: 37px; left: 60px">
-                                街面图像综合应用管家
-                            </div>
-                            <div :class="six_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
-                        </div>
+                        <!-- <div class="city-scape-left-" @click="six_clicked">
+            <div
+                :class="six_selected == true ? 'city-scape-left-number left-number-selected' : 'city-scape-left-number'">
+                <div
+                    :class="six_selected == true ? 'left-number left-number-text-selected' : 'left-number'">
+                    6</div>
+            </div>
+            <div :class="six_selected == true ? 'city-scape-left-name left-name-selected' : 'city-scape-left-name'"
+                style="top: 37px; left: 60px">
+                街面图像综合应用管家
+            </div>
+            <div :class="six_selected == true ? 'col-line col-line-selected' : 'col-line'"></div>
+        </div> -->
                         <div class="extra-col-line"></div>
                     </div>
 
-                    <div class="city-scape-right" v-for="system_info in systems" :key="system_info.id">
+                    <div class="city-scape-right" v-for="system_info in  systems " :key="system_info.id">
                         <img v-if="one_selected == true" class="right-number-img" src="@/assets/images/city/number1.png"
                             alt="">
                         <img v-if="two_selected == true" class="right-number-img" src="@/assets/images/city/number2.png"
@@ -174,31 +174,157 @@
                         <div class="system-name">{{ system_info.name }}</div>
                         <div class="system-name-en">{{ system_info.name_en }}</div>
 
-                        <img v-if="one_selected == true" class="right-bg" src="@/assets/images/city/bg1.png" alt="">
-                        <img v-if="two_selected == true" class="right-bg" src="@/assets/images/city/bg2.png" alt="">
-                        <img v-if="three_selected == true" class="right-bg" src="@/assets/images/city/bg3.png" alt="">
-                        <img v-if="four_selected == true" class="right-bg" src="@/assets/images/city/bg4.png" alt="">
-                        <img v-if="five_selected == true" class="right-bg" src="@/assets/images/city/bg5.png" alt="">
+                        <!-- <img v-if="one_selected == true" class="right-bg" src="@/assets/images/city/bg1.png" alt=""> -->
+                        <!-- <img v-if="two_selected == true" class="right-bg" src="@/assets/images/city/bg2.png" alt=""> -->
+                        <div v-show="one_selected == true" class="right-bg-yyxt">
+                            <div id="container_yyxt1" style="width: 500px; height: 350px"></div>
+                            <div id="container_yyxt2" style="width: 300px; height: 350px;float:left"></div>
+                            <div id="container_yyxt3" style="width: 200px; height: 350px;float:left"></div>
+                        </div>
+                        <!-- <img v-if="three_selected == true" class="right-bg" src="@/assets/images/city/bg3.png" alt=""> -->
+                        <template v-if="two_selected == true">
+                            <div class="right-bg-ddzh">
+                                <el-collapse v-model="activeNames" @change="handleChange" accordion>
+                                    <el-collapse-item title="金泉中队 定位异常情况" name="1">
+                                        <el-table :data="ddzh_jinquan" stripe style="width: 600px" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item>
+                                    <el-collapse-item title="沙河源中队 定位异常情况" name="2">
+                                        <el-table :data="ddzh_shaheyuan" stripe style="width: 600px" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="茶店子中队 定位异常情况" name="3">
+                                        <el-table :data="ddzh_chadianzi" stripe style="width: 600px" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="西华中队 定位异常情况" name="4">
+                                        <el-table :data="ddzh_xihua" stripe style="width: 600px" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="营门口中队 定位异常情况" name="5">
+                                        <el-table :data="ddzh_yingmenkou" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="九里堤中队 定位异常情况" name="6">
+                                        <el-table :data="ddzh_jinquan" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="荷花池中队 定位异常情况" name="7">
+                                        <el-table :data="ddzh_hehuachi" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="五块石中队 定位异常情况" name="8">
+                                        <el-table :data="ddzh_wukuaishi" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="天回中队 定位异常情况" name="9">
+                                        <el-table :data="ddzh_tianhui" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="驷马桥中队 定位异常情况" name="10">
+                                        <el-table :data="ddzh_simaqiao" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="凤凰山中队 定位异常情况" name="11">
+                                        <el-table :data="ddzh_fenghuanshan" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item><el-collapse-item title="西安路中队 定位异常情况" name="12">
+                                        <el-table :data="ddzh_xianlu" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item>
+                                    <el-collapse-item title="抚琴中队 定位异常情况" name="13">
+                                        <el-table :data="ddzh_fuqin" stripe style="width: 100%" max-height="500">
+                                            <el-table-column prop="name" label="姓名" width="100" />
+                                            <el-table-column prop="telephone" label="电话" width="180" />
+                                            <el-table-column prop="department" label="部门" />
+                                        </el-table>
+                                    </el-collapse-item>
+                                </el-collapse>
+                            </div>
+                        </template>
+                        <!-- <img v-if="four_selected == true" class="right-bg" src="@/assets/images/city/bg4.png" alt=""> -->
+                        <div v-show="three_selected == true" class="right-bg">
+                            <div id="container_gxdc1" style="width: 300px; height: 350px;float:left"></div>
+                            <div id="container_gxdc2" style="width: 300px; height: 350px;"></div>
+                        </div>
+                        <div v-if="four_selected == true" class="right-bg">
+                            <p class="demo-rich-content__mention"
+                                style="margin: 0; font-size: 18px; color: var(--el-color-info)">
+                                @工地运企信息
+                            </p>
+                            <el-table :data="ycxt_tableData1" stripe style="width: 100%" max-height="500">
+                                <el-table-column prop="名称" label="名称" width="100" />
+                                <el-table-column prop="更新时间" label="更新时间" width="140" />
+                                <el-table-column prop="联系人" label="联系人" width="70" />
+                                <el-table-column prop="车辆数" label="车辆数" width="60" />
+                                <el-table-column prop="联系电话" label="联系电话" />
+
+
+                            </el-table>
+                            <p class="demo-rich-content__mention"
+                                style="margin: 0; font-size: 18px; color: var(--el-color-info)">
+                                @今日超速车辆列表
+                            </p>
+                            <el-table :data="ycxt_tableData2" stripe style="width: 100%" max-height="500">
+                                <el-table-column prop="超速位置" label="超速位置" width="100" />
+                                <el-table-column prop="速度" label="速度" width="140" />
+                                <el-table-column prop="车牌号" label="车牌号" width="90" />
+                                <el-table-column prop="超速时间" label="超速时间" />
+
+
+                            </el-table>
+                        </div>
+
+                        <!-- <img v-if="five_selected == true" class="right-bg" src="@/assets/images/city/bg5.png" alt=""> -->
+
                         <img v-if="six_selected == true" class="right-bg" src="@/assets/images/city/bg6.png" alt="">
 
                         <div class="system-content">
-                            <img v-if="one_selected == true" class="content-bg" src="@/assets/images/city/content1.png"
-                                alt="">
-                            <img v-if="two_selected == true" class="content-bg" src="@/assets/images/city/content2.png"
-                                alt="">
-                            <img v-if="three_selected == true" class="content-bg" src="@/assets/images/city/content3.png"
-                                alt="">
-                            <img v-if="four_selected == true" class="content-bg" src="@/assets/images/city/content4.png"
-                                alt="">
-                            <img v-if="five_selected == true" class="content-bg" src="@/assets/images/city/content5.png"
-                                alt="">
-                            <img v-if="six_selected == true" class="content-bg" src="@/assets/images/city/content6.png"
-                                alt="">
+                            <!-- <img v-if="one_selected == true" class="content-bg" src="@/assets/images/city/content1.png"
+                alt=""> -->
+                            <!-- <img v-if="two_selected == true" class="content-bg" src="@/assets/images/city/content2.png"
+                alt=""> -->
+                            <!-- <img v-if="three_selected == true" class="content-bg" src="@/assets/images/city/content3.png"
+                alt=""> -->
+                            <!-- <img v-if="four_selected == true" class="content-bg" src="@/assets/images/city/content4.png"
+                alt=""> -->
+                            <!-- <img v-if="five_selected == true" class="content-bg" src="@/assets/images/city/content5.png"
+                alt=""> -->
+                            <!-- <img v-if="six_selected == true" class="content-bg" src="@/assets/images/city/content6.png"
+                alt=""> -->
 
-                            <div class="system-content-test">
-                                <p v-for="item in system_info.items" :key="item.id">{{ item.desc }}：{{ item.value }}</p>
-                            </div>
-                            <img class="check-img" src="@/assets/images/city/check.png" alt="">
+                            <!-- <div class="system-content-test">
+                <p v-for=" item  in  system_info.items " :key="item.id">{{ item.desc }}：{{ item.value }}
+                </p>
+            </div> -->
+                            <!-- <img class="check-img" src="@/assets/images/city/check.png" alt=""> -->
                         </div>
                     </div>
                 </div>
@@ -229,7 +355,7 @@ import 'element-plus/theme-chalk/display.css'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { ref, reactive, computed, onBeforeMount, onMounted } from "vue";
 import { ElMessage } from 'element-plus';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import MainInfo from '@/views/home/components/MainInfo.vue'
 import ClassItem from '@/views/home/components/ClassItem.vue'
 import Header from "@/components/Header.vue"
@@ -238,14 +364,360 @@ import { getMainInfoYyxt } from '@/api/yyxt.js'
 import { getMainXzzf } from '@/api/xzzf.js'
 import { getTokenGxdc, getMainGxdc } from "@/api/gxdc";
 import { params } from '@/store/store.js'
+import { getGroup } from '@/api/ddzh'
+import { getOverStandard, getMonitor, getCompanyType, getTouSU } from '@/api/yyxt';
+import * as echarts from "echarts";
+import { getCompanyDust, getOverSpeed } from "@/api/ycxt";
 
 const tableDataYyxt = ref([])
 const tableDataXzzf = ref([])
 const tableDataGxdc = ref([])
 const gxdc = reactive({ url: '' })
 const gxdcUrl = ref('')
-
+let route = useRoute();
 const imgVisible = ref(true)
+const ddzh_jinquan = ref([])
+const ddzh_fuqin = ref([])
+const ddzh_xianlu = ref([])
+const ddzh_chadianzi = ref([])
+const ddzh_shaheyuan = ref([])
+const ddzh_xihua = ref([])
+const ddzh_yingmenkou = ref([])
+const ddzh_jiulidi = ref([])
+const ddzh_wukuaishi = ref([])
+const ddzh_hehuachi = ref([])
+const ddzh_tianhui = ref([])
+const ddzh_simaqiao = ref([])
+const ddzh_fenghuanshan = ref([])
+function echartInit_gxdc() {
+    var myChart_gxdc = echarts.init(document.getElementById("container_gxdc1"));
+    var myChart_gxdc1 = echarts.init(document.getElementById("container_gxdc2"));
+    var option_gxdc2 = {
+        title: {
+            text: '公司统计',
+            textStyle: {
+                color: 'black'
+            }
+        },
+
+
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                // Use axis to trigger tooltip
+                type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+            }
+        },
+        legend: {},
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value'
+        },
+        yAxis: {
+            type: 'category',
+            data: ['美团', '哈啰', '青桔']
+        },
+        series: [
+            {
+                name: '正常停放',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                textStyle: {
+                    color: '#ccc'
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [18244, 14765, 19339]
+            },
+            {
+                name: '异常停放',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                }, textStyle: {
+                    color: '#ccc'
+                },
+                data: [2231, 4902, 1872]
+            },
+            {
+                name: '正常行驶',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                }, textStyle: {
+                    color: '#ccc'
+                },
+                data: [1537, 932, 1948]
+            },
+
+        ]
+    };
+    myChart_gxdc1.setOption(option_gxdc2)
+
+    getMainGxdc().then(gxdcData => {
+        var option_gxdc1 = {
+            title: {
+                text: '单车统计',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            series: [
+                {
+                    name: '单车',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 35,
+                            fontWeight: 'bold',
+
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: gxdcData[2].infoVal, name: '正常停放车辆' },
+                        { value: gxdcData[1].infoVal, name: '异常停放车辆' },
+                        { value: gxdcData[3].infoVal, name: '行驶中车辆' },
+                        // { value: 580, name: 'Email' },
+                        // { value: 484, name: 'Union Ads' },
+                        // { value: 300, name: 'Video Ads' }
+                    ]
+                }
+            ]
+        }
+        myChart_gxdc.setOption(option_gxdc1)
+    })
+}
+function echartInit_yyxt() {
+    document.getElementById("container_yyxt1").removeAttribute("_echarts_instance_");
+    document.getElementById("container_yyxt2").removeAttribute("_echarts_instance_");
+    document.getElementById("container_yyxt3").removeAttribute("_echarts_instance_");
+    var myChart_yyxt1 = echarts.init(document.getElementById("container_yyxt1"))
+    var myChart_yyxt2 = echarts.init(document.getElementById("container_yyxt2"))
+    var myChart_yyxt3 = echarts.init(document.getElementById("container_yyxt3"))
+    getOverStandard().then(tableData => {
+
+        var option_yyxt1 = {
+            title: {
+                text: '超标企业街道分布',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            yAxis: {
+                type: 'category',
+                data: [tableData[0].areaname, tableData[1].areaname, tableData[2].areaname, tableData[3].areaname, tableData[4].areaname, tableData[5].areaname, tableData[6].areaname, tableData[7].areaname, tableData[8].areaname, tableData[9].areaname, tableData[10].areaname, tableData[11].areaname, tableData[12].areaname],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: { interval: 0 },
+
+            },
+
+            xAxis: {
+                type: 'value'
+            },
+            axisTick: {
+                alignWithLabel: true
+            },
+            series: [
+                {
+                    data: [tableData[0].value, tableData[1].value, tableData[2].value, tableData[3].value, tableData[4].value, tableData[5].value, tableData[6].value, tableData[7].value, tableData[8].value, tableData[9].value, tableData[10].value, tableData[11].value, tableData[12].value],
+                    type: 'bar',
+                    showBackground: true,
+                    backgroundStyle: {
+                        color: 'rgba(180, 180, 180, 0.2)'
+                    }
+                }
+            ]
+        };
+        myChart_yyxt1.setOption(option_yyxt1)
+
+    })
+    getMonitor().then(tableData => {
+        var option_yyxt3 = {
+            title: {
+                text: '餐饮企业监控级别',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            series: [
+                {
+                    name: '企业',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 35,
+                            fontWeight: 'bold',
+
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: tableData[0].ct, name: '常态' },
+                        { value: tableData[0].yb, name: '一般' },
+                        { value: tableData[0].zd, name: '重点' },
+                        // { value: 484, name: 'Union Ads' },
+                        // { value: 300, name: 'Video Ads' }
+                    ]
+                }
+            ]
+        }
+        myChart_yyxt3.setOption(option_yyxt3)
+    })
+    getTouSU().then(data => {
+
+        if (data.tsLastNow.length < 12) {
+            for (let i = 0; i < 20; i++) {
+                var tmp = { count: 0 }
+                data.tsLastNow.push(tmp)
+            }
+
+        }
+        var option_yyxt2 = {
+
+            title: {
+                text: '油烟投诉趋势图',
+                textStyle: {
+                    color: 'black'
+                }
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                textStyle: {
+                    color: 'black'
+                },
+                data: ['2021', '2022', '2023',]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '2021',
+                    type: 'line',
+
+                    data: [data.tsLastTow[0].count, data.tsLastTow[1].count, data.tsLastTow[2].count,
+                    data.tsLastTow[3].count, data.tsLastTow[4].count,
+                    data.tsLastTow[5].count, data.tsLastTow[6].count, data.tsLastTow[7].count,
+                    data.tsLastTow[8].count, data.tsLastTow[9].count,
+                    data.tsLastTow[10].count, data.tsLastTow[11].count]
+                },
+                {
+                    name: '2022',
+                    type: 'line',
+
+                    data: [data.tsLast[0].count, data.tsLast[1].count, data.tsLast[2].count,
+                    data.tsLast[3].count, data.tsLast[4].count,
+                    data.tsLast[5].count, data.tsLast[6].count, data.tsLast[7].count,
+                    data.tsLast[8].count, data.tsLast[9].count,
+                    data.tsLast[10].count, data.tsLast[11].count]
+                },
+                {
+                    name: '2023',
+                    type: 'line',
+
+                    data: [data.tsLastNow[0].count, data.tsLastNow[1].count, data.tsLastNow[2].count,
+                    data.tsLastNow[3].count, data.tsLastNow[4].count,
+                    data.tsLastNow[5].count, data.tsLastNow[6].count, data.tsLastNow[7].count, data.tsLastNow[8].count,
+                    data.tsLastNow[9].count, data.tsLastNow[10].count, data.tsLastNow[11].count]
+                },
+
+            ]
+        };
+        myChart_yyxt2.setOption(option_yyxt2)
+    })
+}
 //用户信息
 const user = reactive({
     username: '张三',
@@ -259,9 +731,37 @@ var week = "星期" + a[str];
 function toSystem(item) {
     router.push({ name: item.to, params: item.systemName })
 }
+const ycxt_tableData1 = ref([])
+const ycxt_tableData2 = ref([]) //扬尘系统
 //部门列表, 从后端获取
 const depts = ref([])
 onBeforeMount(() => {
+    console.log(route.params.num)
+    // console.log(route.params.name[0])
+
+    if (route.params.num == '3') three_clicked();
+    getCompanyDust().then(data => {
+        ycxt_tableData1.value = data
+    })
+    getOverSpeed().then(data => {
+        if (data.length != 0)
+            ycxt_tableData2.value = data
+    })
+    getGroup().then(data => {
+        ddzh_jinquan.value = data.金泉中队
+        ddzh_shaheyuan.value = data.沙河源中队
+        ddzh_chadianzi.value = data.茶店子中队
+        ddzh_xihua.value = data.西华中队
+        ddzh_yingmenkou.value = data.营门口中队
+        ddzh_jiulidi.value = data.九里堤中队
+        ddzh_hehuachi.value = data.荷花池中队
+        ddzh_wukuaishi.value = data.五块石中队
+        ddzh_tianhui.value = data.天回中队
+        ddzh_simaqiao.value = data.驷马桥中队
+        ddzh_fenghuanshan.value = data.凤凰山中队
+        ddzh_xianlu.value = data.西安路中队
+        ddzh_fuqin.value = data.抚琴中队
+    })
     getDeptList()
         .then(response => {
             depts.value = response
@@ -306,6 +806,8 @@ onBeforeMount(() => {
 // 系统列表
 const systemss = ref([])
 onMounted(() => {
+    echartInit_yyxt()
+    echartInit_gxdc()
     getSystemList().then(data => {
         systemss.value = data
         // 请求各个子系统要显示的数据
@@ -359,48 +861,48 @@ function switchShowDepts(deptId, deptName) {
 const router = useRouter()
 // 跳转到to指定的子系统汇总页面
 function show(id, url) {
-    if (url === '') {
+    // if (url === '') {
 
-        ElMessage({
-            showClose: true,
-            message: '正在开发中...'
-        })
-    } else {
-        // router.push({ name: to, params: { subsysName } })
-        if (id != '14' && id != '12')
-            window.open(url)
-        if (id == '14')
-            window.open(gxdc.url)
-        if (id == '12') {
-            var roles = []
-            roles = params.roleId.split(",")
-            console.log(roles.indexOf('84'))
-            // console.log(params.roleId)
-            if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
-                var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
-                window.open(ddzh_url)
-            }
-            if (roles.indexOf('93') != -1) {
-                var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
-                window.open(ddzh_url)
-            }
+    //     ElMessage({
+    //         showClose: true,
+    //         message: '正在开发中...'
+    //     })
+    // } else {
+    //     // router.push({ name: to, params: { subsysName } })
+    //     if (id != '14' && id != '12')
+    //         window.open(url)
+    //     if (id == '14')
+    //         window.open(gxdc.url)
+    //     if (id == '12') {
+    //         var roles = []
+    //         roles = params.roleId.split(",")
+    //         console.log(roles.indexOf('84'))
+    //         // console.log(params.roleId)
+    //         if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
+    //             var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
+    //             window.open(ddzh_url)
+    //         }
+    //         if (roles.indexOf('93') != -1) {
+    //             var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
+    //             window.open(ddzh_url)
+    //         }
 
-            if (roles.indexOf('120') != -1) {
-                var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
-                window.open(ddzh_url)
-            }
-            if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
-                var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
-                window.open(ddzh_url)
-            }
-            else {
-                var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
-                console.log(ddzh_url)
-                window.open(url)
-            }
+    //         if (roles.indexOf('120') != -1) {
+    //             var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
+    //             window.open(ddzh_url)
+    //         }
+    //         if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
+    //             var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
+    //             window.open(ddzh_url)
+    //         }
+    //         else {
+    //             var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
+    //             console.log(ddzh_url)
+    //             window.open(url)
+    //         }
 
-        } //调度指挥
-    }
+    //     } //调度指挥
+    // }
     // if (to === '') {
     //     ll
     //     ElMessage({
@@ -495,7 +997,7 @@ const two_clicked = () => {
 const three_clicked = () => {
     systems.splice(0, systems.length);
 
-    system_diaodu.name = "扬尘治理大数据协同管理中心";
+    system_diaodu.name = "调度指挥管家";
     system_diaodu.name_en = "Dust Control Big Data Collaborative Management Center"
 
     let diaodu_info = [
@@ -519,7 +1021,7 @@ const three_clicked = () => {
 const four_clicked = () => {
     systems.splice(0, systems.length);
 
-    system_yangchen.name = "餐饮油烟监测服务";
+    system_yangchen.name = "扬尘治理大数据协同管理中心  ";
     system_yangchen.name_en = "Catering Lampblack Monitoring Service"
 
     let yangchen_info = [
@@ -616,15 +1118,12 @@ const six_clicked = () => {
 }
 
 .text-title {
-    margin-top: 30px;
-
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: large;
     color: #fff;
-    line-height: 10px;
-    width: 400px;
-    padding: 0px;
-    font-size: 18px
+    line-height: 60px;
+    width: 30%;
+    padding: 5px;
 }
 
 .text-logo {
@@ -674,7 +1173,7 @@ const six_clicked = () => {
     /**保持子系统栏与标题栏背景色一致 */
     display: flex;
     flex-wrap: wrap;
-    padding: 25px;
+    padding: 5px;
     text-align: center;
 
 }
@@ -781,77 +1280,77 @@ const six_clicked = () => {
 
 .city-scape {
     position: relative;
-    margin-top: 10vh;
-    margin-right: 60vw;
+    margin-top: 2vh;
+    margin-right: 65vw;
     height: 1000px;
 }
 
 .city-scape-left-one {
     cursor: pointer;
-    width: 320px;
+    width: 120px;
 }
 
 .city-scape-left-number {
-    width: 48px;
-    height: 48px;
+    width: 24px;
+    height: 24px;
     position: absolute;
     top: 25px;
     border: 1px solid #333333;
 }
 
 .left-number {
-    width: 15px;
-    height: 33px;
+    width: 7px;
+    height: 17px;
     position: absolute;
-    top: 7px;
-    left: 16px;
+    top: 3px;
+    left: 8px;
     font-family: PingFangSC-Regular;
-    font-size: 24px;
+    font-size: 12px;
     color: #333333;
     text-align: center;
 }
 
 .city-scape-left-name {
     width: 180px;
-    height: 50px;
+    height: 25px;
     position: absolute;
-    left: 60px;
-    top: 23px;
+    left: 1110px;
+    top: 221px;
     font-family: PingFangSC-Regular;
     font-size: 18px;
     color: #333333;
 }
 
 .city-scape-left-two {
-    width: 320px;
+    width: 100px;
     position: absolute;
     top: 100px;
     cursor: pointer;
 }
 
 .city-scape-left-three {
-    width: 320px;
+    width: 100px;
     position: absolute;
     top: 200px;
     cursor: pointer;
 }
 
 .city-scape-left-four {
-    width: 320px;
+    width: 100px;
     position: absolute;
     top: 300px;
     cursor: pointer;
 }
 
 .city-scape-left-five {
-    width: 320px;
+    width: 100px;
     position: absolute;
     top: 400px;
     cursor: pointer;
 }
 
 .city-scape-left-six {
-    width: 320px;
+    width: 120px;
     position: absolute;
     top: 500px;
     cursor: pointer;
@@ -862,7 +1361,7 @@ const six_clicked = () => {
     height: 100px;
     background: #CCCCCC;
     position: absolute;
-    left: 319px;
+    left: 159px;
 }
 
 .extra-col-line {
@@ -870,8 +1369,8 @@ const six_clicked = () => {
     height: 260px;
     background: #CCCCCC;
     position: absolute;
-    left: 319px;
-    top: 600px;
+    left: 159px;
+    top: 300px;
 }
 
 .left-number-selected {
@@ -881,7 +1380,7 @@ const six_clicked = () => {
 
 .left-number-text-selected {
     font-family: PingFangSC-Regular;
-    font-size: 24px;
+    font-size: 12px;
     color: #FFFFFF;
     text-align: center;
 }
@@ -901,38 +1400,54 @@ const six_clicked = () => {
     width: 120px;
     height: 32px;
     position: absolute;
-    left: 363px;
-    top: 13px;
+    left: 163px;
+    top: 3px;
 }
 
 .system-name {
-    width: 408px;
+    width: 308px;
     height: 33px;
     position: absolute;
-    top: 48px;
-    left: 360px;
+    top: 28px;
+    left: 170px;
     font-family: PingFangSC-Semibold;
     font-size: 24px;
     color: #1677D9;
 }
 
 .system-name-en {
-    width: 672px;
+    width: 372px;
     height: 20px;
     position: absolute;
     top: 83px;
-    left: 360px;
+    left: 170px;
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #999999;
 }
 
 .right-bg {
-    width: 799px;
+    width: 509px;
     height: 599px;
     position: absolute;
     top: 123px;
-    left: 360px;
+    left: 170px;
+}
+
+.right-bg-ddzh {
+    width: 409px;
+    height: 599px;
+    position: absolute;
+    top: 123px;
+    left: 170px;
+}
+
+.right-bg-yyxt {
+    width: 600px;
+    height: 599px;
+    position: absolute;
+    top: 153px;
+    left: 160px;
 }
 
 .system-content {

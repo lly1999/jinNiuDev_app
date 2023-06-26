@@ -13,3 +13,9 @@ export function getCntStatus() {
         method: 'get'
     })
 }
+export function getGroup() {
+    return request({
+        url: '/ddzh/getGroup',
+        method: 'get'
+    })
+}

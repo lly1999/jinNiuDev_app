@@ -45,7 +45,7 @@
 
       </el-header>
       <div class="background" v-if="showDepts">
-        <img src="@/assets/home/banner-blue.jpg" width="10000" style="overflow-y:auto;overflow-x: auto;">
+        <img src="@/assets/home/banner-new1.jpg" width="10000" style="overflow-y:auto;overflow-x: auto;">
       </div>
       <!-- <div class="background" v-if="choosedDept === 0">
         <img src="@/assets/home/banner-hjws.png" width="10000" style="overflow-y:auto;overflow-x: auto;">
@@ -87,7 +87,7 @@
           <!--测试-->
           <el-card v-if="item.systemName == '环卫作业运行管家'" class="card" shadow="hover" :body-style="{ padding: '0px' }">
 
-            <el-image class="image" :src="require('@/assets/home/' + item.image)"> </el-image>
+            <el-image class="image" :src="require('@/assets/home/img-hwzy2.jpg')"> </el-image>
             <ul v-if="item.url">
               <div class="header">
                 <el-button class="el-button-hjws" type="text" @click="toSystemHjws(item)" style="margin-top:10px">{{
@@ -178,7 +178,7 @@
           </el-card>
           <el-card v-if="item.systemName == '餐厨垃圾全生命周期管家'" class="card" shadow="hover" :body-style="{ padding: '0px' }">
 
-            <el-image class="image" :src="require('@/assets/home/' + item.image)"> </el-image>
+            <el-image class="image" :src="require('@/assets/home/img-cclj2.jpg')"> </el-image>
             <ul v-if="item.url">
               <div class="header">
                 <el-button class="el-button-hjws" type="text" @click="toSystemHjws(item)" style="margin-top:10px">{{
@@ -241,7 +241,7 @@
           </el-card><el-card v-if="item.systemName == '生活垃圾全生命周期管家'" class="card" shadow="hover"
             :body-style="{ padding: '0px' }">
 
-            <el-image class="image" :src="require('@/assets/home/' + item.image)"> </el-image>
+            <el-image class="image" :src="require('@/assets/home/img-ljz2.jpg')"> </el-image>
             <ul v-if="item.url">
               <div class="header">
                 <el-button class="el-button-hjws" type="text" @click="toSystemHjws(item)" style="margin-top:10px">{{
@@ -297,7 +297,7 @@
           </el-card>
           <el-card v-if="item.systemName == '垃圾分类管家'" class="card" shadow="hover" :body-style="{ padding: '0px' }">
 
-            <el-image class="image" :src="require('@/assets/home/img-ljfl1.jpg')"> </el-image>
+            <el-image class="image" :src="require('@/assets/home/img-ljfl2.jpg')"> </el-image>
             <ul v-if="item.url">
               <div class="header">
                 <el-button class="el-button-hjws" type="text" @click="toSystemHjws(item)" style="margin-top:10px">{{
@@ -521,8 +521,8 @@
 
                       <div id="container_ddzh1" style="width: 400px; height:600px;float: left;">
                       </div>
-                      <!-- <div id="container_ddzh2" style="width: 1000px; height: 400px ;float:left"></div> -->
-
+                      <div id="container_ddzh2" style="width: 400px; height: 400px ;float:left"></div>
+                      <div id="container_ddzh3" style="width: 400px; height: 400px ;float:left"></div>
 
                       <div style="display:flex ;clear:left">
 
@@ -1179,12 +1179,12 @@ import { getToken, getMainSyd } from "@/api/syd";
 import { getTokenGxdc, getMainGxdc, getCompany } from "@/api/gxdc";
 import { params } from '@/store/store.js'
 import * as echarts from "echarts";
-import { getRdfx, getSjqsfx } from "@/api/szcg.js";
-import { getOverStandard, getMonitor } from '@/api/yyxt';
+import { getRdfx, getSjqsfx, getResourceSzcg } from "@/api/szcg.js";
+import { getOverStandard, getMonitor, getCompanyType, getTouSU } from '@/api/yyxt';
 import { getAiUrl } from "@/api/ai";
 import { getMain, getCategory } from "@/api/ggzp"
 import { getMainJgzm, getElectricity } from "@/api/jgzm"
-import { getAllEvents } from "@/api/tcwt";
+import { getAllEvents, getResourceTcwt, getTrend } from "@/api/tcwt";
 import { getSitesData } from "@/api/cclj";
 import { getMainLjz, getSum, getWarning } from "@/api/ljz";
 import { getCarLists, getAiAlarm } from "@/api/hwzy";
@@ -1217,212 +1217,11 @@ const retailCount = ref([])
 const cateringCount = ref([])
 const serviceCount = ref([])
 const otherCount = ref([])
-const ljz_table2 = ref([])
-const hwzy_tableData = ref([])
-const syd_data = ref([])
+const ljz_table2 = ref([]) //垃圾站
+const hwzy_tableData = ref([]) //环卫作业
 const ycxt_tableData1 = ref([])
-const ycxt_tableData2 = ref([])
-const ddzh_tableData2 = ref([])
-const ddzh_tableData1 = ref([])
+const ycxt_tableData2 = ref([]) //扬尘系统
 
-const echartInit_ddzh = () => {
-  document.getElementById("container_ddzh1").removeAttribute("_echarts_instance_");
-  var myChart_ddzh1 = echarts.init(document.getElementById("container_ddzh1"));
-  //document.getElementById("container_ddzh2").removeAttribute("_echarts_instance_");
-  //var myChart_ddzh2 = echarts.init(document.getElementById("container_ddzh2"));
-  var option1 = {
-    title: {
-      text: '打卡率统计',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    yAxis: {
-      type: 'category',
-      data: [ddzh_tableData1.value[0].department, ddzh_tableData1.value[1].department, ddzh_tableData1.value[2].department, ddzh_tableData1.value[3].department
-        , ddzh_tableData1.value[4].department, ddzh_tableData1.value[5].department, ddzh_tableData1.value[6].department,
-      ddzh_tableData1.value[7].department,
-      ddzh_tableData1.value[8].department, ddzh_tableData1.value[9].department, ddzh_tableData1.value[10].department, ddzh_tableData1.value[11].department, ddzh_tableData1.value[12].department,
-      ddzh_tableData1.value[13].department, ddzh_tableData1.value[14].department, ddzh_tableData1.value[15].department, ddzh_tableData1.value[16].department,
-      ddzh_tableData1.value[17].department, ddzh_tableData1.value[18].department, ddzh_tableData1.value[19].department, ddzh_tableData1.value[20].department,
-      ddzh_tableData1.value[21].department, ddzh_tableData1.value[22].department, ddzh_tableData1.value[23].department, ddzh_tableData1.value[24].department,
-      ddzh_tableData1.value[25].department, ddzh_tableData1.value[26].department, ddzh_tableData1.value[27].department, ddzh_tableData1.value[28].department,
-      ],
-      axisLabel: {
-        //x轴文字的配置
-        show: true,
-        interval: 0,//使x轴文字显示全
-        rotate: 40
-      }
-
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-      textStyle: {
-        color: 'white'
-      }
-    },
-    xAxis: {
-      type: 'value'
-    },
-    series: [
-      {
-        data: [(ddzh_tableData1.value[0].checkRate * 100).toFixed(2), (ddzh_tableData1.value[1].checkRate * 100).toFixed(2), (ddzh_tableData1.value[2].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[3].checkRate * 100).toFixed(2), (ddzh_tableData1.value[4].checkRate * 100).toFixed(2), (ddzh_tableData1.value[5].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[6].checkRate * 100).toFixed(2), (ddzh_tableData1.value[7].checkRate * 100).toFixed(2), (ddzh_tableData1.value[8].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[9].checkRate * 100).toFixed(2), (ddzh_tableData1.value[10].checkRate * 100).toFixed(2), (ddzh_tableData1.value[11].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[12].checkRate * 100).toFixed(2), (ddzh_tableData1.value[13].checkRate * 100).toFixed(2), (ddzh_tableData1.value[14].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[15].checkRate * 100).toFixed(2), (ddzh_tableData1.value[16].checkRate * 100).toFixed(2), (ddzh_tableData1.value[17].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[18].checkRate * 100).toFixed(2), (ddzh_tableData1.value[19].checkRate * 100).toFixed(2), (ddzh_tableData1.value[20].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[21].checkRate * 100).toFixed(2), (ddzh_tableData1.value[22].checkRate * 100).toFixed(2), (ddzh_tableData1.value[23].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[24].checkRate * 100).toFixed(2), (ddzh_tableData1.value[25].checkRate * 100).toFixed(2), (ddzh_tableData1.value[26].checkRate * 100).toFixed(2),
-        (ddzh_tableData1.value[27].checkRate * 100).toFixed(2), (ddzh_tableData1.value[28].checkRate * 100).toFixed(2)]
-        ,
-        type: 'bar',
-        showBackground: true,
-        backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)'
-        },
-        emphasis: {
-          focus: 'series'
-        }, textStyle: {
-          color: 'white'
-        },
-        label: {
-          show: true
-        },
-
-      }]
-  }
-  var option2 = {}
-
-  myChart_ddzh1.setOption(option1)
-  myChart_ddzh1.setOption(option2)
-
-}
-const echartInit_syd = () => {
-  document.getElementById("container_syd1").removeAttribute("_echarts_instance_");
-  var myChart_syd1 = echarts.init(document.getElementById("container_syd1"));
-  document.getElementById("container_syd2").removeAttribute("_echarts_instance_");
-  var myChart_syd2 = echarts.init(document.getElementById("container_syd2"));
-  var option_syd1 = {
-    title: {
-      text: '案件分析日统计',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: 'white'
-      }
-    },
-    series: [
-      {
-        name: '案件',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: true,
-          position: 'center'
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 35,
-            fontWeight: 'bold',
-
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: syd_data.value[2].infoVal, name: '今日办结案件数量' },
-          { value: syd_data.value[0].infoVal - syd_data.value[2].infoVal, name: '今日待办案件数量' },
-          // { value: 580, name: 'Email' },
-          // { value: 484, name: 'Union Ads' },
-          // { value: 300, name: 'Video Ads' }
-        ]
-      }
-    ]
-  }
-  myChart_syd1.setOption(option_syd1)
-  var option_syd2 = {
-    title: {
-      text: '案件分析月统计',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: 'white'
-      }
-    },
-    series: [
-      {
-        name: '案件',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: true,
-          position: 'center'
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 35,
-            fontWeight: 'bold',
-
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: syd_data.value[3].infoVal, name: '本月办结案件数量' },
-          { value: syd_data.value[1].infoVal - syd_data.value[3].infoVal, name: '本月待办案件数量' },
-          // { value: 580, name: 'Email' },
-          // { value: 484, name: 'Union Ads' },
-          // { value: 300, name: 'Video Ads' }
-        ]
-      }
-    ]
-  }
-  myChart_syd2.setOption(option_syd2)
-}
 const validatePass2 = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请再次输入密码！'))
@@ -1503,7 +1302,6 @@ const form = reactive({
 })
 const confirmChangePasswordVisible = ref(false)
 const changePasswordDialog = ref(false)
-
 const echartInit_srzx = () => {
   document.getElementById("container_gxdc1").removeAttribute("_echarts_instance_");
 
@@ -1648,7 +1446,190 @@ const echartInit_srzx = () => {
 
 }
 
+const echartInit_ddzh = () => {
+  if (ddzh_tableData2.value.length == 3) {
+    ddzh_tableData2.value.push({ isNormal: false, identity: "办公室人员", num: 0 })
+  }
+  if (ddzh_tableData2.value.length == 4) {
+    ddzh_tableData2.value.push({ isNormal: false, identity: "执法人员", num: 0 })
+  }
+  document.getElementById("container_ddzh1").removeAttribute("_echarts_instance_");
+  var myChart_ddzh1 = echarts.init(document.getElementById("container_ddzh1"));
+  document.getElementById("container_ddzh2").removeAttribute("_echarts_instance_");
+  var myChart_ddzh2 = echarts.init(document.getElementById("container_ddzh2"));
+  document.getElementById("container_ddzh3").removeAttribute("_echarts_instance_");
+  var myChart_ddzh3 = echarts.init(document.getElementById("container_ddzh3"));
+  var option1 = {
+    title: {
+      text: '打卡率统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    yAxis: {
+      type: 'category',
+      data: [ddzh_tableData1.value[0].department, ddzh_tableData1.value[1].department, ddzh_tableData1.value[2].department, ddzh_tableData1.value[3].department
+        , ddzh_tableData1.value[4].department, ddzh_tableData1.value[5].department, ddzh_tableData1.value[6].department,
+      ddzh_tableData1.value[7].department,
+      ddzh_tableData1.value[8].department, ddzh_tableData1.value[9].department, ddzh_tableData1.value[10].department, ddzh_tableData1.value[11].department, ddzh_tableData1.value[12].department,
+      ddzh_tableData1.value[13].department, ddzh_tableData1.value[14].department, ddzh_tableData1.value[15].department, ddzh_tableData1.value[16].department,
+      ddzh_tableData1.value[17].department, ddzh_tableData1.value[18].department, ddzh_tableData1.value[19].department, ddzh_tableData1.value[20].department,
+      ddzh_tableData1.value[21].department, ddzh_tableData1.value[22].department, ddzh_tableData1.value[23].department, ddzh_tableData1.value[24].department,
+      ddzh_tableData1.value[25].department, ddzh_tableData1.value[26].department, ddzh_tableData1.value[27].department, ddzh_tableData1.value[28].department,
+      ],
+      axisLabel: {
+        //x轴文字的配置
+        show: true,
+        interval: 0,//使x轴文字显示全
+        rotate: 20
+      }
 
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true,
+      textStyle: {
+        color: 'white'
+      }
+    },
+    xAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: [(ddzh_tableData1.value[0].checkRate * 100).toFixed(2), (ddzh_tableData1.value[1].checkRate * 100).toFixed(2), (ddzh_tableData1.value[2].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[3].checkRate * 100).toFixed(2), (ddzh_tableData1.value[4].checkRate * 100).toFixed(2), (ddzh_tableData1.value[5].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[6].checkRate * 100).toFixed(2), (ddzh_tableData1.value[7].checkRate * 100).toFixed(2), (ddzh_tableData1.value[8].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[9].checkRate * 100).toFixed(2), (ddzh_tableData1.value[10].checkRate * 100).toFixed(2), (ddzh_tableData1.value[11].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[12].checkRate * 100).toFixed(2), (ddzh_tableData1.value[13].checkRate * 100).toFixed(2), (ddzh_tableData1.value[14].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[15].checkRate * 100).toFixed(2), (ddzh_tableData1.value[16].checkRate * 100).toFixed(2), (ddzh_tableData1.value[17].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[18].checkRate * 100).toFixed(2), (ddzh_tableData1.value[19].checkRate * 100).toFixed(2), (ddzh_tableData1.value[20].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[21].checkRate * 100).toFixed(2), (ddzh_tableData1.value[22].checkRate * 100).toFixed(2), (ddzh_tableData1.value[23].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[24].checkRate * 100).toFixed(2), (ddzh_tableData1.value[25].checkRate * 100).toFixed(2), (ddzh_tableData1.value[26].checkRate * 100).toFixed(2),
+        (ddzh_tableData1.value[27].checkRate * 100).toFixed(2), (ddzh_tableData1.value[28].checkRate * 100).toFixed(2)]
+        ,
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)'
+        },
+        emphasis: {
+          focus: 'series'
+        }, textStyle: {
+          color: 'white'
+        },
+        label: {
+          show: true
+        },
+
+      }]
+  }
+  var option2 = {
+    title: {
+      text: '执法人员定位情况',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    series: [
+      {
+        name: '执法人员',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: ddzh_tableData2.value[0].num, name: "定位正常人员" },
+          { value: ddzh_tableData2.value[4].num, name: "定位异常人员" },
+          // { value: 111, name: 222 },
+
+        ],
+        label: {
+          show: true,
+          formatter(param) {
+            // correct the percentage
+            return param.name + ' (' + param.percent + '%)';
+          }
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  }
+  var option3 = {
+    title: {
+      text: '协管人员定位情况',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    series: [
+      {
+        name: '协管人员',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: ddzh_tableData2.value[1].num, name: "定位正常人员" },
+          { value: ddzh_tableData2.value[3].num, name: "定位异常人员" },
+          // { value: 111, name: 222 },
+
+        ],
+        label: {
+          show: true,
+          formatter(param) {
+            // correct the percentage
+            return param.name + ' (' + param.percent + '%)';
+          }
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  myChart_ddzh1.setOption(option1)
+  myChart_ddzh2.setOption(option2)
+  myChart_ddzh3.setOption(option3)
+
+
+}
 const echartInit_ljz = () => {
 
   document.getElementById("container_ljz1").removeAttribute("_echarts_instance_");
@@ -1780,7 +1761,120 @@ const echartInit_ljz = () => {
   myChart_ljz2.setOption(option2)
 
 }
+const echartInit_syd = () => {
+  document.getElementById("container_syd1").removeAttribute("_echarts_instance_");
+  var myChart_syd1 = echarts.init(document.getElementById("container_syd1"));
+  document.getElementById("container_syd2").removeAttribute("_echarts_instance_");
+  var myChart_syd2 = echarts.init(document.getElementById("container_syd2"));
+  var option_syd1 = {
+    title: {
+      text: '案件分析日统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    series: [
+      {
+        name: '案件',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 35,
+            fontWeight: 'bold',
 
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: syd_data.value[2].infoVal, name: '今日办结案件数量' },
+          { value: syd_data.value[0].infoVal - syd_data.value[2].infoVal, name: '今日待办案件数量' },
+          // { value: 580, name: 'Email' },
+          // { value: 484, name: 'Union Ads' },
+          // { value: 300, name: 'Video Ads' }
+        ]
+      }
+    ]
+  }
+  myChart_syd1.setOption(option_syd1)
+  var option_syd2 = {
+    title: {
+      text: '案件分析月统计',
+      textStyle: {
+        color: '#ccc'
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center',
+      textStyle: {
+        color: 'white'
+      }
+    },
+    series: [
+      {
+        name: '案件',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 35,
+            fontWeight: 'bold',
+
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: syd_data.value[3].infoVal, name: '本月办结案件数量' },
+          { value: syd_data.value[1].infoVal - syd_data.value[3].infoVal, name: '本月待办案件数量' },
+          // { value: 580, name: 'Email' },
+          // { value: 484, name: 'Union Ads' },
+          // { value: 300, name: 'Video Ads' }
+        ]
+      }
+    ]
+  }
+  myChart_syd2.setOption(option_syd2)
+}
 const echartInit_cclj = () => {
   document.getElementById("container_cclj").removeAttribute("_echarts_instance_");
   var myChart_cclj = echarts.init(document.getElementById("container_cclj"));
@@ -1801,17 +1895,17 @@ const echartInit_cclj = () => {
     },
     xAxis: {
       type: 'category',
-      data: [cclj_sites.value[0].street, cclj_sites.value[1].street, cclj_sites.value[2].street, cclj_sites.value[3].street
-        , cclj_sites.value[4].street, cclj_sites.value[5].street, cclj_sites.value[6].street,
-      cclj_sites.value[7].street,
-      cclj_sites.value[8].street, cclj_sites.value[9].street, cclj_sites.value[10].street, cclj_sites.value[11].street, cclj_sites.value[12].street
-      ],
       axisLabel: {
         //x轴文字的配置
         show: true,
         interval: 0,//使x轴文字显示全
         rotate: 20
-      }
+      },
+      data: [cclj_sites.value[0].street, cclj_sites.value[1].street, cclj_sites.value[2].street, cclj_sites.value[3].street
+        , cclj_sites.value[4].street, cclj_sites.value[5].street, cclj_sites.value[6].street,
+      cclj_sites.value[7].street,
+      cclj_sites.value[8].street, cclj_sites.value[9].street, cclj_sites.value[10].street, cclj_sites.value[11].street, cclj_sites.value[12].street
+      ]
     },
     yAxis: {
       type: 'value'
@@ -1897,47 +1991,46 @@ const echartInit_cclj = () => {
 const echartInit_jgzm = () => {
   document.getElementById("container_ljdp1").removeAttribute("_echarts_instance_");
   document.getElementById("container_ljdp2").removeAttribute("_echarts_instance_");
-  document.getElementById("container_jgzm").removeAttribute("_echarts_instance_");
+  //document.getElementById("container_jgzm").removeAttribute("_echarts_instance_");
 
   var myChart_ljdp1 = echarts.init(document.getElementById("container_ljdp1"));
   var myChart2 = echarts.init(document.getElementById("container_ljdp2"))
-  var myChart_jgzm1 = echarts.init(document.getElementById("container_jgzm"));
+  //var myChart_jgzm1 = echarts.init(document.getElementById("container_jgzm"));
   // var myChart4 = echarts.init(document.getElementById("container_jgzm4"))
-  getMainJgzm().then(data => {
-    console.log(data)
-    var option_jgzm1 = {
-      title: {
-        text: '用电量统计',
-        textStyle: {
-          color: '#ccc'
-        }
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      xAxis: {
-        type: 'category',
-        data: ['昨日电量统计', '月电量统计', '年电量统计']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          data: [data[1].infoVal, data[2].infoVal, data[3].infoVal],
-          type: 'bar',
-          showBackground: true,
-          backgroundStyle: {
-            color: 'rgba(180, 180, 180, 0.2)'
-          }
-        }
-      ]
-    }
-    myChart_jgzm1.setOption(option_jgzm1)
-  })
+  // getMainJgzm().then(data => {
+  //   var option_jgzm1 = {
+  //     title: {
+  //       text: '用电量统计',
+  //       textStyle: {
+  //         color: '#ccc'
+  //       }
+  //     },
+  //     tooltip: {
+  //       trigger: 'axis',
+  //       axisPointer: {
+  //         type: 'shadow'
+  //       }
+  //     },
+  //     xAxis: {
+  //       type: 'category',
+  //       data: ['昨日电量统计', '月电量统计', '年电量统计']
+  //     },
+  //     yAxis: {
+  //       type: 'value'
+  //     },
+  //     series: [
+  //       {
+  //         data: [data[1].infoVal, data[2].infoVal, data[3].infoVal],
+  //         type: 'bar',
+  //         showBackground: true,
+  //         backgroundStyle: {
+  //           color: 'rgba(180, 180, 180, 0.2)'
+  //         }
+  //       }
+  //     ]
+  //   }
+  //   myChart_jgzm1.setOption(option_jgzm1)
+  // })
 
   getMain().then(data => {
 
@@ -2023,11 +2116,11 @@ const echartInit_jgzm = () => {
 
 
 }
-// function toSystemHjws(item) {
-//   window.open(item.url)
+function toSystemHjws(item) {
+  // window.open(item.url)
 
 
-// }
+}
 const echartInit = () => {
   document.getElementById("container").removeAttribute("_echarts_instance_");
   document.getElementById("container1").removeAttribute("_echarts_instance_");
@@ -2052,86 +2145,97 @@ const echartInit = () => {
   var myChart_yyxt4 = echarts.init(document.getElementById("container_yyxt4"))
 
   // 指定图表的配置项和数据
-  var option = {
-    title: {
-      text: '事件趋势分析',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    //这里的yAxis就是竖轴，xAxis就是横轴
-    // yAxis and xAxis 交换可以改变横向或竖向
-    yAxis: {
-      data: ['积存垃圾', '占道经营', '其他', '非机动车', '油烟', '无照']
-    },
-    xAxis: {
+  getTrend().then(data => {
+    var option = {
+      title: {
+        text: '事件趋势分析',
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      //这里的yAxis就是竖轴，xAxis就是横轴
+      // yAxis and xAxis 交换可以改变横向或竖向
+      yAxis: {
+        data: [data[0].type, data[2].type, data[3].type, data[4].type, data[5].type]
+      },
+      xAxis: {
 
-    },
-    // 数据的来源
-    series: [
-      {
-        name: 'source',
-        // bar就是柱状图
-        type: 'bar',
-        color: '#dd6b66',
-        // 数据
-        data: [2, 3, 4, 4, 5, 7,]
-      }
-    ]
+      },
+      // 数据的来源
+      series: [
+        {
+          name: 'source',
+          // bar就是柱状图
+          type: 'bar',
+          color: '#dd6b66',
+          // 数据
+          data: [data[0].lian_value, data[1].lian_value, data[2].lian_value, data[3].lian_value,
+          data[4].lian_value, data[5].lian_value,]
+        }
+      ]
+    }
+    myChart.setOption(option);
   }
-  var option1 = {
-    title: {
-      text: '来源分析',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: 'white'
-      }
-    },
-    series: [
-      {
-        name: '来源',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: false,
-          position: 'center'
-        },
-        emphasis: {
+
+
+  )
+  getResourceTcwt().then(data => {
+    var option1 = {
+      title: {
+        text: '来源分析',
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '5%',
+        left: 'center',
+        textStyle: {
+          color: 'white'
+        }
+      },
+      series: [
+        {
+          name: '来源',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
           label: {
-            show: true,
-            fontSize: 35,
-            fontWeight: 'bold',
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 35,
+              fontWeight: 'bold',
 
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 101, name: '突出问题' },
-          // { value: 735, name: 'Direct' },
-          // { value: 580, name: 'Email' },
-          // { value: 484, name: 'Union Ads' },
-          // { value: 300, name: 'Video Ads' }
-        ]
-      }
-    ]
-  }
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: data[0].value, name: data[0].source },
+            // { value: 735, name: 'Direct' },
+            // { value: 580, name: 'Email' },
+            // { value: 484, name: 'Union Ads' },
+            // { value: 300, name: 'Video Ads' }
+          ]
+        }
+      ]
+    }
+    myChart1.setOption(option1);
+  })
+
   getRdfx().then(data => {
     var option2 = {
       title: {
@@ -2162,6 +2266,12 @@ const echartInit = () => {
       xAxis: [
         {
           type: 'category',
+          axisLabel: {
+            //x轴文字的配置
+            show: true,
+            interval: 0,//使x轴文字显示全
+            rotate: 20
+          },
           // prettier-ignore
           data: [data[0].sub_type_name, data[1].sub_type_name, data[2].sub_type_name, data[3].sub_type_name, data[4].sub_type_name, data[5].sub_type_name, data[6].sub_type_name, data[7].sub_type_name, data[8].sub_type_name,]
         }
@@ -2193,7 +2303,6 @@ const echartInit = () => {
     myChart2.setOption(option2);
   })
   getSjqsfx().then(dataTable => {
-    console.log(dataTable)
     var option4 = {
       title: {
         textStyle: {
@@ -2261,60 +2370,62 @@ const echartInit = () => {
     myChart4.setOption(option4);
 
   })
-
-  var option3 = {
-    title: {
-      text: '来源分析',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: 'white'
-      }
-    },
-    series: [
-      {
-        name: '来源',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: false,
-          position: 'center'
-        },
-        emphasis: {
+  getResourceSzcg().then(data => {
+    var option3 = {
+      title: {
+        text: '来源分析',
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '5%',
+        left: 'center',
+        textStyle: {
+          color: 'white'
+        }
+      },
+      series: [
+        {
+          name: '来源',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
           label: {
-            show: true,
-            fontSize: 35,
-            fontWeight: 'bold',
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 35,
+              fontWeight: 'bold',
 
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 54, name: '巡查上报' },
-          { value: 12, name: '视频上报' },
-          { value: 13, name: '自报自处' },
-          // { value: 484, name: 'Union Ads' },
-          // { value: 300, name: 'Video Ads' }
-        ]
-      }
-    ]
-  }
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: data[0].value, name: data[0].wtly },
+
+            // { value: 484, name: 'Union Ads' },
+            // { value: 300, name: 'Video Ads' }
+          ]
+        }
+      ]
+    }
+    myChart3.setOption(option3);
+  })
+
 
   getOverStandard().then(tableData => {
 
@@ -2417,131 +2528,155 @@ const echartInit = () => {
     }
     myChart_yyxt3.setOption(option_yyxt3)
   })
-  var option_yyxt2 = {
+  getTouSU().then(data => {
 
-    title: {
-      text: '油烟投诉趋势图',
-      textStyle: {
-        color: '#ccc'
+    if (data.tsLastNow.length < 12) {
+      for (let i = 0; i < 20; i++) {
+        var tmp = { count: 0 }
+        data.tsLastNow.push(tmp)
       }
-    },
-    tooltip: {
-      trigger: 'axis'
-    },
-    legend: {
-      textStyle: {
-        color: '#ccc'
-      },
-      data: ['2020', '2021', '2022', '',]
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true
-    },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [
-      {
-        name: '2020',
-        type: 'line',
-        stack: 'Total',
-        data: [16, 37, 82, 129, 150, 106, 128, 142, 125, 217, 117, 117]
-      },
-      {
-        name: '2021',
-        type: 'line',
-        stack: 'Total',
-        data: [57, 71, 133, 215, 207, 167, 94, 106, 154, 115, 92, 85]
-      },
-      {
-        name: '2022',
-        type: 'line',
-        stack: 'Total',
-        data: [54, 32, 85, 94, 91, 93, 57, 61, 26, 59, 27, 26]
-      },
 
-    ]
-  };
+    }
+    var option_yyxt2 = {
 
-  var option_yyxt4 = {
-    title: {
-      text: '餐饮企业类型分布',
-      textStyle: {
-        color: '#ccc'
-      }
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      top: '5%',
-      left: 'center',
-      textStyle: {
-        color: 'white'
-      }
-    },
-    series: [
-      {
-        name: '企业',
-        type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: '#fff',
-          borderWidth: 2
+      title: {
+        text: '油烟投诉趋势图',
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        textStyle: {
+          color: '#ccc'
         },
-        label: {
-          show: false,
-          position: 'center'
+        data: ['2021', '2022', '2023',]
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '2021',
+          type: 'line',
+
+          data: [data.tsLastTow[0].count, data.tsLastTow[1].count, data.tsLastTow[2].count,
+          data.tsLastTow[3].count, data.tsLastTow[4].count,
+          data.tsLastTow[5].count, data.tsLastTow[6].count, data.tsLastTow[7].count,
+          data.tsLastTow[8].count, data.tsLastTow[9].count,
+          data.tsLastTow[10].count, data.tsLastTow[11].count]
         },
-        emphasis: {
+        {
+          name: '2022',
+          type: 'line',
+
+          data: [data.tsLast[0].count, data.tsLast[1].count, data.tsLast[2].count,
+          data.tsLast[3].count, data.tsLast[4].count,
+          data.tsLast[5].count, data.tsLast[6].count, data.tsLast[7].count,
+          data.tsLast[8].count, data.tsLast[9].count,
+          data.tsLast[10].count, data.tsLast[11].count]
+        },
+        {
+          name: '2023',
+          type: 'line',
+
+          data: [data.tsLastNow[0].count, data.tsLastNow[1].count, data.tsLastNow[2].count,
+          data.tsLastNow[3].count, data.tsLastNow[4].count,
+          data.tsLastNow[5].count, data.tsLastNow[6].count, data.tsLastNow[7].count, data.tsLastNow[8].count,
+          data.tsLastNow[9].count, data.tsLastNow[10].count, data.tsLastNow[11].count]
+        },
+
+      ]
+    };
+    myChart_yyxt2.setOption(option_yyxt2)
+
+  })
+
+  getCompanyType().then(data => {
+    var option_yyxt4 = {
+      title: {
+        text: '餐饮企业类型分布',
+        textStyle: {
+          color: '#ccc'
+        }
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '5%',
+        left: 'center',
+        textStyle: {
+          color: 'white'
+        }
+      },
+      series: [
+        {
+          name: '企业',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
           label: {
-            show: true,
-            fontSize: 35,
-            fontWeight: 'bold',
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 35,
+              fontWeight: 'bold',
 
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 2187, name: '中餐' },
-          { value: 726, name: '火锅' },
-          { value: 371, name: '烧烤' },
-          { value: 39, name: '西餐' },
-          { value: 507, name: '面食' },
-          { value: 134, name: '中式包点' },
-          { value: 151, name: '饮品' },
-          { value: 1532, name: '其他（干锅快餐等）' },
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            { value: data[0].num, name: data[0].sub_text },
+            { value: data[1].num, name: data[1].sub_text },
+            { value: data[2].num, name: data[2].sub_text },
+            { value: data[3].num, name: data[3].sub_text },
+            { value: data[4].num, name: data[4].sub_text },
+            { value: data[5].num, name: data[5].sub_text },
+            { value: data[6].num, name: data[6].sub_text },
 
 
-          // { value: 484, name: 'Union Ads' },
-          // { value: 300, name: 'Video Ads' }
-        ]
-      }
-    ]
-  }
+            // { value: 484, name: 'Union Ads' },
+            // { value: 300, name: 'Video Ads' }
+          ]
+        }
+      ]
+    }
+    myChart_yyxt4.setOption(option_yyxt4)
+
+  })
+
   // 使用刚指定的配置项和数据显示图表。
-  myChart.setOption(option);
-  myChart1.setOption(option1);
-  myChart3.setOption(option3);
-  myChart_yyxt2.setOption(option_yyxt2)
-  myChart_yyxt4.setOption(option_yyxt4)
+
+
 
   // myChart4.setOption(option4);
 
@@ -2611,12 +2746,16 @@ const syd = reactive({ url: '' })
 const gxdcUrl = ref('')
 const tcwtTableData = ref([])
 const hwzy_tableData1 = ref([])
+const ddzh_tableData1 = ref([])
+const ddzh_tableData2 = ref([{ 超速位置: "无", 速度: "无", 车牌号: "无", 超速时间: "无" }])
+const syd_data = ref([])
 const sydUrl = ref("https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token=")
+const toDdzh = () => {
+  router.push({ name: 'dept1', params: { num: '3' } })
+}
 onBeforeMount(() => {
-
   getMainSyd().then(data => {
     syd_data.value = data
-    console.log(syd_data.value)
   })
 
   getCheckRate().then(data => {
@@ -2625,6 +2764,7 @@ onBeforeMount(() => {
   getCntStatus().then(data => {
     ddzh_tableData2.value = data
 
+    console.log(ddzh_tableData2.value)
 
   })
   getAllEvents(today, tomorrow).then(data => {
@@ -2642,11 +2782,10 @@ onBeforeMount(() => {
     ycxt_tableData1.value = data
   })
   getOverSpeed().then(data => {
-    if (data != [])
+    if (data.length != 0)
       ycxt_tableData2.value = data
   })
 })
-
 const imgVisible = ref(true)
 //用户信息
 const user = reactive({
@@ -2660,12 +2799,9 @@ let date = new Date().toLocaleDateString();
 var a = new Array("日", "一", "二", "三", "四", "五", "六");
 var str = new Date().getDay();
 var week = "星期" + a[str];
-function toSystem(item) {
-
+function openSystem(item) {
+  window.open(item.url)
 }
-// function openSystem(item) {
-//   window.open(item.url)
-// }
 // function toSystem(item) {
 //   if(item.isLogin == '0')
 //   router.push({ name: item.to, params: item.systemName })
@@ -2676,73 +2812,73 @@ function toSystem(item) {
 //   window.open(gxdc.url)
 // }
 //方法重写，摒弃三级页面，后续如果需要用上面这个
-// function toSystem(item) {  //每个子系统登录方式不一样
-//   console.log(item.systemId)
-//   if (item.systemId != '14' && item.systemId != '16' && item.systemId != '17' && item.systemId != '4' && item.systemId != '12') {
-//     console.log(item.systemName)
-//     if (item.url === '') {
+function toSystem(item) {  //每个子系统登录方式不一样
+  console.log(item.systemId)
+  // if (item.systemId != '14' && item.systemId != '16' && item.systemId != '17' && item.systemId != '4' && item.systemId != '12') {
+  //   console.log(item.systemName)
+  //   if (item.url === '') {
 
-//       ElMessage({
-//         showClose: true,
-//         message: '正在开发中...'
-//       })
-//     } else
-//       window.open(item.url)
-//   }
-//   if (item.systemId == '14') //共享单车
-//     window.open(gxdc.url)
-//   if (item.systemId == '16') {   //诉易达
+  //     ElMessage({
+  //       showClose: true,
+  //       message: '正在开发中...'
+  //     })
+  //   } else
+  //     window.open(item.url)
+  // }
+  // if (item.systemId == '14') //共享单车
+  //   window.open(gxdc.url)
+  // if (item.systemId == '16') {   //诉易达
 
-//     getToken().then(data => {
-//       token.value = data
-//       var sydUrl = "https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token="
-//       sydUrl = sydUrl + token.value
-//       syd.url = sydUrl
-//       console.log(syd.url)
-//       window.open(syd.url)
-//     })
+  //   getToken().then(data => {
+  //     token.value = data
+  //     var sydUrl = "https://www.jncgsqbl.com/namespaces/1/categories/1?_user_login_token="
+  //     sydUrl = sydUrl + token.value
+  //     syd.url = sydUrl
+  //     console.log(syd.url)
+  //     window.open(syd.url)
+  //   })
 
-//   }
-//   if (item.systemId == '17' || item.systemId == '4') {
-//     getAiUrl().then(data => {
-//       aiUrl.value = data.message
-//       console.log(data, aiUrl)
-//       window.open(aiUrl.value)
-//     })
+  // }
+  // if (item.systemId == '17' || item.systemId == '4') {
+  //   getAiUrl().then(data => {
+  //     aiUrl.value = data.message
+  //     console.log(data, aiUrl)
+  //     window.open(aiUrl.value)
+  //   })
 
-//   }
-//   if (item.systemId == '12') {
-//     var roles = []
-//     roles = params.roleId.split(",")
-//     console.log(roles.indexOf('84'))
-//     // console.log(params.roleId)
-//     if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
-//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
-//       window.open(ddzh_url)
-//     }
-//     if (roles.indexOf('93') != -1) {
-//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
-//       window.open(ddzh_url)
-//     }
+  // }
+  // if (item.systemId == '12') {
+  //   var roles = []
+  //   roles = params.roleId.split(",")
+  //   console.log(roles.indexOf('84'))
+  //   // console.log(params.roleId)
+  //   if (roles.indexOf('84') != -1 || roles.indexOf('111') != -1 || roles.indexOf('83') != -1) {
+  //     var ddzh_url = "https://101.37.246.72:8079/map/?username=18008060886&pwd=MTIzNDU2"
+  //     window.open(ddzh_url)
+  //   }
+  //   if (roles.indexOf('93') != -1) {
+  //     var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061151&pwd=MTIzNDU2"
+  //     window.open(ddzh_url)
+  //   }
 
-//     if (roles.indexOf('120') != -1) {
-//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
-//       window.open(ddzh_url)
-//     }
-//     if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
-//       var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
-//       window.open(ddzh_url)
-//     }
-//     else {
-//       var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
-//       console.log(ddzh_url)
-//       window.open(item.url)
-//     }
+  //   if (roles.indexOf('120') != -1) {
+  //     var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061081&pwd=MTIzNDU2"
+  //     window.open(ddzh_url)
+  //   }
+  //   if (roles.indexOf('96') != -1 || roles.indexOf('99') != -1 || roles.indexOf('102') != -1) {
+  //     var ddzh_url = "https://101.37.246.72:8079/map/?username=18008061109&pwd=MTIzNDU2"
+  //     window.open(ddzh_url)
+  //   }
+  //   else {
+  //     var ddzh_url = "https://101.37.246.72:8079/map/?username=" + params.username + "&pwd=MTIzNDU2"
+  //     console.log(ddzh_url)
+  //     window.open(item.url)
+  //   }
 
-//   } //调度指挥
+  // } //调度指挥
 
 
-// }
+}
 const ljz_table1 = ref([])
 
 //部门列表, 从后端获取
@@ -2754,8 +2890,8 @@ onBeforeMount(() => {
     })
   getCategory().then(data => {
     retailCount.value = data[0]
-    cateringCount.value = data[1]
-    serviceCount.value = data[2]
+    cateringCount.value = data[2]
+    serviceCount.value = data[1]
     otherCount.value = data[3]
   })
   getElectricity().then(data => {
@@ -2864,7 +3000,9 @@ function logout() {
   params.isLogin = false
   router.push('/login')
 }
+
 </script>
+
 
 <style scoped>
 .my-el-popover {

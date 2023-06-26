@@ -13,18 +13,20 @@
             <el-header class="navHeader">
                 <!-- logo -->
 
+                <!-- <el-image class="text-logo" :src="require('@/assets/home/logo-title.jpg')" fit="scale-down"></el-image> -->
                 <div class="classification" v-if="showDepts">
                     <class-item v-for="dept in depts" :key="dept.deptId"
                         @click="switchShowDepts(dept.deptId, dept.deptName)" :logo="dept.deptLogo" :name="dept.deptName"
                         styleName="subsysName"></class-item>
                 </div>
                 <!-- <div class="subsys" v-if="!showDepts">
-          <div class="subdepts">{{choosedDeptName}}</div>
-        </div> -->
+<div class="subdepts">{{choosedDeptName}}</div>
+</div> -->
                 <div class="subsys" v-if="!showDepts">
 
-                    <class-item v-for="system in choosedSystems" :key="system.systemId" @click="show(system.to, system.url)"
-                        :logo="system.systemLogo" :name="system.systemName" styleName="subsysName">
+                    <class-item v-for="system in choosedSystems" :key="system.systemId"
+                        @click="show(system.systemId, system.url)" :logo="system.systemLogo" :name="system.systemName"
+                        styleName="subsysName">
                     </class-item>
                 </div>
                 <div class="subsys" v-if="!showDepts">
@@ -55,7 +57,7 @@
                     <div class="classification-title" v-if="choosedDept == -1 | choosedDept == 2">
                         景观照明管家
                     </div>
-                    <div>JinNiu Centralized Control Systems Of LandScape Lighting</div>
+                    <div style="font-size: 25px;">JinNiu Centralized Control Systems Of LandScape Lighting</div>
                 </div>
 
 
@@ -68,22 +70,22 @@
                         :deptId="item.deptId">
 
                         <div v-if="item.systemName == '景观照明管家'" style="display: flex;">
-                            <el-image :src="require('@/assets/jgzm/' + idx + '-1.jpg')" style="width:30%" fit="scale-down">
-                            </el-image>
-                            <div style="padding:5px ;margin-top:0%;font-size: 25px;margin-left: 3%;width:1000px">
+                            <!-- <el-image :src="require('@/assets/jgzm/' + idx + '-1.jpg')" style="width:30%" fit="scale-down">
+                            </el-image> -->
+                            <div style="padding:5px ;margin-top:0%;font-size: 25px;margin-left: 3%;width:500px">
                                 <el-button v-if="item.url" class="el-button-succeed" type="text" @click="toSystem(item)"
                                     style="margin-top:0px;margin-left:0%">{{ item.systemName }} 设备报警信息</el-button>
 
-                                <div style="padding:5px">
-                                    <template v-for="tableItem in tableData_jbgl">
-                                        <el-table :data="tableItem.data" class="table" :fit="false"
-                                            :row-style="{ height: '80px' }" :cell-style="cellstyle" max-height="300">
-                                            <el-table-column v-for="i in tableItem.headerNames.length"
-                                                :label="tableItem.headerNames[i - 1]" :prop="tableItem.dataNames[i - 1]"
-                                                width="200" />
-                                        </el-table>
-                                    </template>
-                                </div>
+
+                                <template v-for="tableItem in tableData_jbgl">
+                                    <el-table :data="tableItem.data" :row-style="{ height: '80px' }" :cell-style="cellstyle"
+                                        max-height="300" width="300px">
+                                        <el-table-column v-for="i in tableItem.headerNames.length"
+                                            :label="tableItem.headerNames[i - 1]" :prop="tableItem.dataNames[i - 1]"
+                                            width="80" />
+                                    </el-table>
+                                </template>
+
                             </div>
                         </div>
                     </div>
@@ -92,9 +94,15 @@
                     <div class="classification-title" v-if="choosedDept == -1 | choosedDept == 2">
                         临街店铺管家
                     </div>
-                    <div>QR Code Management of Advertising Signs</div>
+                    <div style="font-size: 25px;">QR Code Management of Advertising Signs</div>
                 </div>
-                <template v-for="(item, idx) in choosedSystems">
+                <div class="jgzmInfo">
+                    <div id="container_ggzp1" style="width: 600px; height: 350px"></div>
+                    <!-- <el-image fit="scale-down" :src="require('@/assets/jgzm/7-1.jpg')"
+                        style="width:30%;float: right;margin-left: 50%;">
+                    </el-image> -->
+                </div>
+                <!-- <template v-for="(item, idx) in choosedSystems">
                     <div class="jgzmInfo" v-if="item.deptId == 2" :key="idx" :systemName="item.systemName" :url="item.url"
                         :logo="item.systemLogo" :infoList="item.data" :image="item.image" :to="item.to"
                         :deptId="item.deptId">
@@ -117,7 +125,7 @@
 
                     </div>
 
-                </template>
+                </template> -->
 
 
 
@@ -154,6 +162,8 @@ import Header from "@/components/Header.vue"
 import { get, getDeptList, getSystemList } from '@/api/home.js'
 import { params } from '@/store/store.js'
 import { getAlarm } from '@/api/jgzm.js';
+import { getMain } from '@/api/ggzp.js';
+import * as echarts from "echarts";
 
 const imgVisible = ref(true)
 //用户信息
@@ -170,21 +180,68 @@ var week = "星期" + a[str];
 // function toSystem(item) {
 //     router.push({ name: item.to, params: item.systemName })
 // }
-function toSystem(item) {
-    if (item.url === '') {
+function echartInit_ggzp() {
+    var myChart_ggzp1 = echarts.init(document.getElementById("container_ggzp1"));
+    var option_ggzp1 = {
+        title: {
+            text: '店铺统计',
+            subtext: '店铺详细分类统计',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left'
+        },
+        series: [
+            {
+                name: '店铺详细分类统计',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: ggzp_tableData.value[1].infoVal, name: ggzp_tableData.value[1].infoKey },
+                    { value: ggzp_tableData.value[2].infoVal, name: ggzp_tableData.value[2].infoKey },
+                    { value: ggzp_tableData.value[3].infoVal, name: ggzp_tableData.value[3].infoKey },
+                    { value: ggzp_tableData.value[4].infoVal, name: ggzp_tableData.value[4].infoKey },
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }, label: {
+                    show: true,
+                    formatter(param) {
+                        // correct the percentage
+                        return param.name + ' (' + param.percent + '%)';
+                    }
+                },
+            }
+        ]
+    };
+    myChart_ggzp1.setOption(option_ggzp1)
 
-        ElMessage({
-            showClose: true,
-            message: '正在开发中...'
-        })
-    } else
-        window.open(item.url)
+}
+function toSystem(item) {
+    // if (item.url === '') {
+
+    //     ElMessage({
+    //         showClose: true,
+    //         message: '正在开发中...'
+    //     })
+    // } else
+    //     window.open(item.url)
 }
 
-
+const ggzp_tableData = ref([])
 //部门列表, 从后端获取
 const depts = ref([])
 onBeforeMount(() => {
+
+
     getDeptList()
         .then(response => {
             depts.value = response
@@ -200,6 +257,10 @@ const systems = ref([])
 const tableData_jbgl = ref([]) //警报管理
 
 onMounted(() => {
+    getMain().then(data => {
+        ggzp_tableData.value = data
+        echartInit_ggzp();
+    })
 
     getSystemList().then(data => {
         systems.value = data
@@ -256,7 +317,7 @@ function switchShowDepts(deptId, deptName) {
 const router = useRouter()
 // 跳转到to指定的子系统汇总页面
 function show(to, url) {
-    window.open(url)
+    // window.open(url)
     // if (to === '') {
     //     ll
     //     ElMessage({
@@ -362,15 +423,12 @@ function backtoHome() {
 }
 
 .text-title {
-    margin-top: 30px;
-
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: large;
     color: #fff;
-    line-height: 10px;
-    width: 400px;
-    padding: 0px;
-    font-size: 18px
+    line-height: 60px;
+    width: 30%;
+    padding: 5px;
 }
 
 .text-logo {
@@ -420,7 +478,7 @@ function backtoHome() {
     /**保持子系统栏与标题栏背景色一致 */
     display: flex;
     flex-wrap: wrap;
-    padding: 25px;
+    padding: 5px;
     text-align: center;
 
 }
